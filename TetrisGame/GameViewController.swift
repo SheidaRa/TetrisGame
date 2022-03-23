@@ -19,15 +19,14 @@ class GameViewController: UIViewController {
             if let scene = SKScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
+                scene.backgroundColor = SKColor.black
                 
                 // Present the scene
                 view.presentScene(scene)
             }
             
             view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
+
         }
     }
 
@@ -45,5 +44,20 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    override func viewWillLayoutSubviews() {
+      // Configure the view.
+      let skView = self.view as! SKView
+        
+      /* Sprite Kit applies additional optimizations to improve rendering performance */
+      skView.ignoresSiblingOrder = true
+        
+      let scene = GameScene(size: skView.frame.size)
+        
+      /* Set the scale mode to scale to fit the window */
+      scene.scaleMode = .aspectFill
+        
+      skView.presentScene(scene)
     }
 }
