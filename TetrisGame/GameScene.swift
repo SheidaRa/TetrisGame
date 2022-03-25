@@ -16,17 +16,16 @@ class GameScene: SKScene {
 
     override init(size: CGSize) {
       super.init(size: size)
-        let tetris = TetrisBlock.init(size: size)
+        let tetris = TetrisBlock(size: size)
         
         self.addChild(tetris)
         
-        block.position = CGPoint(x: size.width, y: size.height)
-        let singleblock = SKShapeNode(rect: CGRect(x: size.width/2, y: size.width/2, width: 40, height: 40))
-        singleblock.fillColor = SKColor.white
-        singleblock.lineWidth = CGFloat(5.0)
-        singleblock.strokeColor = SKColor.red
+//        block.position = CGPoint(x: size.width, y: size.height)
+//        let singleblock = SKShapeNode(rect: CGRect(x: size.width/2, y: size.width/2, width: 40, height: 40))
+//        singleblock.fillColor = SKColor.white
+//        singleblock.lineWidth = CGFloat(5.0)
+//        singleblock.strokeColor = SKColor.red
         
-        self.addChild(singleblock)
     }
     
     

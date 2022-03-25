@@ -20,20 +20,23 @@ class TetrisBlock : SKNode{
         super.init()
         block.position = CGPoint(x: size.width, y: size.height)
         
-        var tetrisType = (
+        var ltetris = (
             (0,0),
             (0,1),
             (1,0),
             (1,1)
         )
         
+       // for (x,y) in ltetris {
+        let singleblock = SKShapeNode(rect: CGRect(x: Int(size.width)/2, y: Int(size.height)/2, width: blockSize, height: blockSize))
+            singleblock.fillColor = SKColor.white
+            singleblock.lineWidth = CGFloat(5.0)
+            singleblock.strokeColor = SKColor.red
+            
+            block.addChild(singleblock)
+       // }
         
-        let singleblock = SKShapeNode(rect: CGRect(x: size.width/2, y: size.width/2, width: 40, height: 40))
-        singleblock.fillColor = SKColor.white
-        singleblock.lineWidth = CGFloat(5.0)
-        singleblock.strokeColor = SKColor.red
         
-        block.addChild(singleblock)
     }
     
     
