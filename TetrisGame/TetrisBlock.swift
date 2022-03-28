@@ -7,8 +7,7 @@
 
 import SpriteKit
 
-let blockSize = 40
-public let block = SKNode()
+let blockSize: Double = 40
 
 class TetrisBlock : SKNode{
     
@@ -16,32 +15,29 @@ class TetrisBlock : SKNode{
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(size: CGSize) {
+    override init() {
         super.init()
-        block.position = CGPoint(x: size.width, y: size.height)
         
-        var ltetris = (
+        let ltetris = [
             (0,0),
             (0,1),
             (1,0),
             (1,1)
-        )
+        ]
         
-       // for (x,y) in ltetris {
-        let singleblock = SKShapeNode(rect: CGRect(x: Int(size.width)/2, y: Int(size.height)/2, width: blockSize, height: blockSize))
+        for (x,y) in ltetris {
+            let singleblock = SKShapeNode(
+                    rect: CGRect(
+                        x: blockSize * Double(x),
+                        y: blockSize * Double(y),
+                        width: blockSize,
+                        height: blockSize))
+            
             singleblock.fillColor = SKColor.white
             singleblock.lineWidth = CGFloat(5.0)
             singleblock.strokeColor = SKColor.red
             
-            block.addChild(singleblock)
-       // }
-        
-        
+            addChild(singleblock)
+        }
     }
-    
-    
-    
-    
-    
-    
 }
