@@ -25,7 +25,8 @@ class GameScene: SKScene {
 //        singleblock.fillColor = SKColor.white
 //        singleblock.lineWidth = CGFloat(5.0)
 //        singleblock.strokeColor = SKColor.red
-        
+//
+
     }
     
     
