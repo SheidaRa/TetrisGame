@@ -88,7 +88,6 @@
 		D593B79D27E2378500EE1B59 = {
 			isa = PBXGroup;
 			children = (
-				2ADC1F2B27F395F5006FA96D /* AssembleBlockChoice.swift */,
 				D593B7A827E2378500EE1B59 /* TetrisGame */,
 				D593B7C227E2378500EE1B59 /* TetrisGameTests */,
 				D593B7CC27E2378500EE1B59 /* TetrisGameUITests */,
@@ -109,6 +108,7 @@
 		D593B7A827E2378500EE1B59 /* TetrisGame */ = {
 			isa = PBXGroup;
 			children = (
+				2ADC1F2B27F395F5006FA96D /* AssembleBlockChoice.swift */,
 				D593B7A927E2378500EE1B59 /* AppDelegate.swift */,
 				D593B7AD27E2378500EE1B59 /* Actions.sks */,
 				D593B7AF27E2378500EE1B59 /* GameScene.swift */,
