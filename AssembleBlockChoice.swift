@@ -15,7 +15,7 @@ let blockSize: Double = 40
 let pieceLineW = 3
 let templateLineW = 6
 
-class AssemnbleBlockChoice : SKNode{
+class AssemnbleBlockChoice : SKNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
