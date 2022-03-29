@@ -8,7 +8,7 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    var selectedBlock = TetrisBlock()
+    var selectedBlock = Piece()
     
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
@@ -16,8 +16,13 @@ class GameScene: SKScene {
 
     override init(size: CGSize) {
       super.init(size: size)
-        let tetris = TetrisBlock()
+        let tetris = Piece()
+        let template = TemplateOutline()
+        //template.position = CGPoint(x:size/2, y: size/2)
         
+        
+        
+        self.addChild(template)
         self.addChild(tetris)
     }
     

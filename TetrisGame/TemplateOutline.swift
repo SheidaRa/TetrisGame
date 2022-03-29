@@ -7,43 +7,24 @@
 
 import SpriteKit
 
-let templateUnit = SKNode()
-
 class TemplateOutline : SKNode{
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(size: CGSize) { //init like initializer?
+    override init() {
         super.init()
-        templateUnit.position = CGPoint(x: size.width, y: size.height)
-        let coord = [(0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (1,3)]
+        let coord = [(1,0), (2,0),(3,0),
+                     (1,1), (2,1), (3,1), (4,1),
+                     (0,2),(1,2), (2,2), (3,2), (4,2),
+                     (0,3),(1,3), (2,3), (3,3), (4,3), (5,3),
+                     (0,4),(1,4), (2,4), (3,4), (4,4),
+                     (0,5),(1,5), (2,5), (3,5), (4,5),
+                     (3,6)]
         
-        for (x, y) in coord { //for loop that creates multiple blocks, & sets their position
-            let block = createBlock(size: size)
-            positionBlock(coord: (x,y), block: block)
-            templateUnit.addChild(block)
-        }
-    }
-    
-    
-    func createBlock(size: CGSize) -> SKShapeNode{
-        let singleBlock = SKShapeNode(rect: CGRect(x: size.width/2, y: size.width/2, width: 40, height: 40)) //x & y terms set the origin of rec? that's what gets moved? what is CGSize
-        
-        blockSettings(block: singleBlock)
-        return singleBlock
-    }
-    
-    func blockSettings(block: SKShapeNode){
-        block.fillColor = SKColor.lightGray
-        block.lineWidth = CGFloat(5.0)
-        block.strokeColor = SKColor.white
-    }
-    
-    func positionBlock(coord: (Int, Int), block: SKShapeNode){
-        let xPos = coord.0
-        let yPos = coord.1
-        block.position = CGPoint(x: xPos, y: yPos)
+        let template = AssemnbleBlockChoice(structurePos: coord, fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW)
+        addChild(template)
     }
 }
+   
