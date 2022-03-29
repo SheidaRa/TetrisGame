@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-let blockSize: Double = 40
+let blockSize: Double = 35
 
 class TetrisBlock : SKNode{
     
@@ -22,7 +22,8 @@ class TetrisBlock : SKNode{
             (0,0),
             (0,1),
             (1,0),
-            (1,1)
+            (1,1),
+            (2,1)
         ]
         
         for (x,y) in ltetris {
@@ -34,7 +35,7 @@ class TetrisBlock : SKNode{
                         height: blockSize))
             
             singleblock.fillColor = SKColor.white
-            singleblock.lineWidth = CGFloat(5.0)
+            singleblock.lineWidth = CGFloat(2.5)
             singleblock.strokeColor = SKColor.red
             
             addChild(singleblock)
