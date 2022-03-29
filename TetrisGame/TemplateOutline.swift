@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-let templateUnit = SKNode()
+//let templateUnit = SKNode()
 
 class TemplateOutline : SKNode{
     
@@ -17,13 +17,13 @@ class TemplateOutline : SKNode{
     
     init(size: CGSize) { //init like initializer?
         super.init()
-        templateUnit.position = CGPoint(x: size.width, y: size.height)
+        //templateUnit.position = CGPoint(x: size.width, y: size.height)
         let coord = [(0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (1,3)]
         
         for (x, y) in coord { //for loop that creates multiple blocks, & sets their position
             let block = createBlock(size: size)
             positionBlock(coord: (x,y), block: block)
-            templateUnit.addChild(block)
+            addChild(block)
         }
     }
     
