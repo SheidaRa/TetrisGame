@@ -23,7 +23,7 @@ class Piece : SKNode{
             (1,1)
         ]
         
-        let piece = AssemnbleBlockChoice(structurePos: ltetris, fillColor: SKColor.gray, lineColor: SKColor.red, lineWidth: pieceLineW)
+        let piece = AssembleBlockChoice(structurePos: ltetris, fillColor: SKColor.gray, lineColor: SKColor.red, lineWidth: pieceLineW)
         addChild(piece)
     }
 }

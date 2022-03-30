@@ -17,7 +17,7 @@ class GameScene: SKScene {
       super.init(size: size)
 
         let template = TemplateOutline()
-        //template.position = CGPoint(x:size/2, y: size/2)
+        template.position = CGPoint(x: 100, y: 200)
         self.addChild(template)
 
         let tetris = Piece()

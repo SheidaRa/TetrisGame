@@ -25,7 +25,7 @@ class TemplateOutline : SKNode{
                      (0,5),(1,5), (2,5), (3,5), (4,5),
                      (3,6)]
 
-        let template = AssemnbleBlockChoice(structurePos: coord, fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW)
+        let template = AssembleBlockChoice(structurePos: coord, fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW)
         addChild(template)
     }
 }
