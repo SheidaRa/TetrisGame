@@ -7,6 +7,20 @@
 
 import SpriteKit
 
+let t2 = [(1,0), (2,0),(3,0),
+             (1,1), (2,1), (3,1), (4,1),
+             (0,2),(1,2), (2,2), (3,2), (4,2),
+             (0,3),(1,3), (2,3), (3,3), (4,3), (5,3),
+             (0,4),(1,4), (2,4), (3,4), (4,4),
+             (0,5),(1,5), (2,5), (3,5), (4,5),
+             (3,6)]
+
+let t3 = [(1,0), (2,0), (3,0), (4,0), (5,0),
+          (1,1), (2,1), (3,1), (4,1), (5,1),
+          (1,2), (2,2), (3,2), (5,2),
+          (1,3), (2,3), (3,3), (4,3), (5,3),
+          (0,4),(1,4), (2,4), (3,4), (4,4)]
+
 
 class TemplateOutline : SKNode{
     
@@ -14,24 +28,10 @@ class TemplateOutline : SKNode{
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init() {
+    init(structure: [(Int, Int)]) {
         super.init()
 
-        let t2 = [(1,0), (2,0),(3,0),
-                     (1,1), (2,1), (3,1), (4,1),
-                     (0,2),(1,2), (2,2), (3,2), (4,2),
-                     (0,3),(1,3), (2,3), (3,3), (4,3), (5,3),
-                     (0,4),(1,4), (2,4), (3,4), (4,4),
-                     (0,5),(1,5), (2,5), (3,5), (4,5),
-                     (3,6)]
-        
-        let t3 = [(1,0), (2,0), (3,0), (4,0), (5,0),
-                  (1,1), (2,1), (3,1), (4,1), (5,1),
-                  (1,2), (2,2), (3,2), (5,2),
-                  (1,3), (2,3), (3,3), (4,3), (5,3),
-                  (0,4),(1,4), (2,4), (3,4), (4,4)]
-
-        let template = AssembleBlockChoice(structurePos: t3, fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW)
+        let template = AssembleBlockChoice(structurePos: structure, fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW)
         addChild(template)
     }
 }
