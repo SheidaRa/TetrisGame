@@ -50,7 +50,9 @@ class Piece : SKNode{
     
     init(structure : [(Int, Int)]) {
         super.init()
-        let piece = AssembleBlockChoice(structurePos: structure, fillColor: SKColor.gray, lineColor: SKColor.red, lineWidth: pieceLineW)
-        addChild(piece)
+        //, fillColor: SKColor.gray, lineColor: SKColor.red, lineWidth: pieceLineW
+//        let piece = AssembleBlockChoice(structurePos: structure)
+//        addChild(piece)
+        addChild(AssembleBlockChoice(structurePos: structure))
     }
 }

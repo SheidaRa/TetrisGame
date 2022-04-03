@@ -11,7 +11,7 @@ import SpriteKit
  Creates blocks of specified colors & assembles based on given structure
  */
 
-let blockSize = 120
+let blockSize = 90
 let pieceLineW = 3
 let templateLineW = 6
 
@@ -21,20 +21,22 @@ class AssembleBlockChoice : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structurePos : [(Int, Int)], fillColor: SKColor, lineColor: SKColor, lineWidth: Int) {
+    //fillColor: SKColor, lineColor: SKColor, lineWidth: Int
+    init(structurePos : [(Int, Int)]) {
         super.init()
         
-        for (x, y) in structurePos { 
-            let block = createBlock(x:x,y:y, fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth)
-            
+        for (x, y) in structurePos {
+            // fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth
+            let block = createBlock(x:x,y:y)
             addChild(block)
         }
     }
     
-    func createBlock(x: Int, y: Int, fillColor: SKColor, lineColor: SKColor, lineWidth: Int) -> SKSpriteNode{
+    //, fillColor: SKColor, lineColor: SKColor, lineWidth: Int
+    func createBlock(x: Int, y: Int) -> SKSpriteNode{
         let singleBlock = SKSpriteNode(imageNamed: "block1")
         singleBlock.size = CGSize(width: blockSize, height: blockSize)
-        
+        singleBlock.position = CGPoint(x: 40 * x, y: 40 * y)
 //        let singleBlock = SKShapeNode(rect: CGRect(x: blockSize * Double(x) , y: blockSize * Double(y) , width: blockSize, height: blockSize))
 //        blockSettings(block: singleBlock, fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth)
         return singleBlock

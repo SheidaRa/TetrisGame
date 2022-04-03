@@ -22,7 +22,7 @@ class GameScene: SKScene {
 
         let piece1 = Piece(structure: stairShape)
         piece1.position = CGPoint(x: 100, y: 150)
-        self.addChild(piece1)
+        addChild(piece1)
         
 //        let piece2 = Piece(structure: tShape)
 //        piece2.position = CGPoint(x: 200, y: 150)
