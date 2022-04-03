@@ -30,9 +30,7 @@ class TemplateOutline : SKNode{
     
     init(structure: [(Int, Int)]) {
         super.init()
-        
-        // fillColor: SKColor.lightGray, lineColor: SKColor.white, lineWidth: templateLineW
-        let template = AssembleBlockChoice(structurePos: structure)
+        let template = AssembleBlockChoice(structurePos: structure, image: "templateBlock")
         addChild(template)
     }
 }

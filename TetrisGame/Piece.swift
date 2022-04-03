@@ -48,11 +48,8 @@ class Piece : SKNode{
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structure : [(Int, Int)]) {
+    init(structure : [(Int, Int)], blockColor: String) {
         super.init()
-        //, fillColor: SKColor.gray, lineColor: SKColor.red, lineWidth: pieceLineW
-//        let piece = AssembleBlockChoice(structurePos: structure)
-//        addChild(piece)
-        addChild(AssembleBlockChoice(structurePos: structure))
+        addChild(AssembleBlockChoice(structurePos: structure, image: blockColor))
     }
 }

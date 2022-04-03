@@ -21,24 +21,19 @@ class AssembleBlockChoice : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //fillColor: SKColor, lineColor: SKColor, lineWidth: Int
-    init(structurePos : [(Int, Int)]) {
+    init(structurePos : [(Int, Int)], image: String) {
         super.init()
         
         for (x, y) in structurePos {
-            // fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth
-            let block = createBlock(x:x,y:y)
+            let block = createBlock(x:x,y:y, imageName: image)
             addChild(block)
         }
     }
     
-    //, fillColor: SKColor, lineColor: SKColor, lineWidth: Int
-    func createBlock(x: Int, y: Int) -> SKSpriteNode{
-        let singleBlock = SKSpriteNode(imageNamed: "block1")
+    func createBlock(x: Int, y: Int, imageName: String) -> SKSpriteNode{
+        let singleBlock = SKSpriteNode(imageNamed: imageName)
         singleBlock.size = CGSize(width: blockSize, height: blockSize)
         singleBlock.position = CGPoint(x: 40 * x, y: 40 * y)
-//        let singleBlock = SKShapeNode(rect: CGRect(x: blockSize * Double(x) , y: blockSize * Double(y) , width: blockSize, height: blockSize))
-//        blockSettings(block: singleBlock, fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth)
         return singleBlock
     }
     
