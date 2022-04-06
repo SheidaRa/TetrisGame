@@ -30,7 +30,7 @@ class Template : SKNode {
     
     init(structure: [(Int, Int)]) {
         super.init()
-        let template = AssembleShape(structurePos: structure, image: "templateBlock")
+        let template = Shape(structurePos: structure, image: "templateBlock")
         addChild(template)
     }
 }

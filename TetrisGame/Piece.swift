@@ -50,6 +50,6 @@ class Piece : SKNode{
     
     init(structure : [(Int, Int)], blockColor: String) {
         super.init()
-        addChild(AssembleShape(structurePos: structure, image: blockColor))
+        addChild(Shape(structurePos: structure, image: blockColor))
     }
 }
