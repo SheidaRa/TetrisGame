@@ -22,7 +22,7 @@ class GameScene: SKScene {
         self.addChild(template)
 
         let piece1 = Piece(structure: stairShape, blockColor: "redBlock")
-        piece1.position = CGPoint(x: 100, y: 150)
+        piece1.position = CGPoint(x: 80, y: 150)
         piece1.zPosition = 1
         addChild(piece1)
         
@@ -37,7 +37,7 @@ class GameScene: SKScene {
         self.addChild(piece3)
 
         let piece4 = Piece(structure: pShape, blockColor: "purpleBlock")
-        piece4.position = CGPoint(x: 235, y: 150)
+        piece4.position = CGPoint(x: 245, y: 150)
         piece4.zPosition = 1
         self.addChild(piece4)
 
@@ -54,8 +54,25 @@ class GameScene: SKScene {
 
             let touchedNode = atPoint(prevTouchPos)
             if let touchedBlock = touchedNode.parent?.parent as? Piece { //
+                touchedBlock.zPosition = 3
                 touchedBlock.position += curTouchPos - prevTouchPos
             }
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let prevTouchPos = touch.previousLocation(in: self)
+            let touchedNode = atPoint(prevTouchPos)
+            if let touchedBlock = touchedNode.parent?.parent as? Piece {
+                touchedBlock.zPosition = 1
+            }
+        }
+    }
+
+    
+    //converts from grid coordinates to screen ones
+    func sceneToGrid(gridCoord:(Int, Int)){
+
     }
 }
