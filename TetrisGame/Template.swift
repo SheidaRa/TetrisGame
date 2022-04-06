@@ -1,5 +1,5 @@
 //
-//  TemplateOutline.swift
+//  Template.swift
 //  TetrisGame
 //
 //  Created by Lily Ewing on 3/24/22.
@@ -22,7 +22,7 @@ let t3 = [(1,0), (2,0), (3,0), (4,0), (5,0),
           (0,4),(1,4), (2,4), (3,4), (4,4)]
 
 
-class TemplateOutline : SKNode{
+class Template : SKNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -30,7 +30,7 @@ class TemplateOutline : SKNode{
     
     init(structure: [(Int, Int)]) {
         super.init()
-        let template = AssembleBlockChoice(structurePos: structure, image: "templateBlock")
+        let template = AssembleShape(structurePos: structure, image: "templateBlock")
         addChild(template)
     }
 }

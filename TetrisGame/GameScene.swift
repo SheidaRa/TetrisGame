@@ -16,7 +16,7 @@ class GameScene: SKScene {
     override init(size: CGSize) {
       super.init(size: size)
 
-        let template = TemplateOutline(structure: t3)
+        let template = Template(structure: t3)
         template.position = CGPoint(x: size.width/5, y: size.height/2) //puts template in front of pieces
         template.zPosition = 0
         self.addChild(template)

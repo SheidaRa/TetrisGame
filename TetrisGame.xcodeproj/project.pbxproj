@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A1037ED27ED68000042D609 /* TemplateOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1037EC27ED68000042D609 /* TemplateOutline.swift */; };
-		2ADC1F2C27F395F5006FA96D /* AssembleBlockChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC1F2B27F395F5006FA96D /* AssembleBlockChoice.swift */; };
+		2A1037ED27ED68000042D609 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1037EC27ED68000042D609 /* Template.swift */; };
+		2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC1F2B27F395F5006FA96D /* Shape.swift */; };
 		D55B208127F3920F006D16C3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55B208027F3920F006D16C3 /* Utils.swift */; };
 		D593B7AA27E2378500EE1B59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B7A927E2378500EE1B59 /* AppDelegate.swift */; };
 		D593B7AE27E2378500EE1B59 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = D593B7AD27E2378500EE1B59 /* Actions.sks */; };
@@ -41,8 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2A1037EC27ED68000042D609 /* TemplateOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOutline.swift; sourceTree = "<group>"; };
-		2ADC1F2B27F395F5006FA96D /* AssembleBlockChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssembleBlockChoice.swift; sourceTree = "<group>"; };
+		2A1037EC27ED68000042D609 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		2ADC1F2B27F395F5006FA96D /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		D55B208027F3920F006D16C3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D593B7A627E2378500EE1B59 /* TetrisGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TetrisGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D593B7A927E2378500EE1B59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		D593B7A827E2378500EE1B59 /* TetrisGame */ = {
 			isa = PBXGroup;
 			children = (
-				2ADC1F2B27F395F5006FA96D /* AssembleBlockChoice.swift */,
+				2ADC1F2B27F395F5006FA96D /* Shape.swift */,
 				D593B7A927E2378500EE1B59 /* AppDelegate.swift */,
 				D593B7AD27E2378500EE1B59 /* Actions.sks */,
 				D593B7AF27E2378500EE1B59 /* GameScene.swift */,
@@ -117,7 +117,7 @@
 				D593B7B627E2378500EE1B59 /* Assets.xcassets */,
 				D593B7B827E2378500EE1B59 /* LaunchScreen.storyboard */,
 				D593B82827EA73BE00EE1B59 /* Piece.swift */,
-				2A1037EC27ED68000042D609 /* TemplateOutline.swift */,
+				2A1037EC27ED68000042D609 /* Template.swift */,
 				D55B208027F3920F006D16C3 /* Utils.swift */,
 			);
 			path = TetrisGame;
@@ -274,9 +274,9 @@
 			files = (
 				D593B7B027E2378500EE1B59 /* GameScene.swift in Sources */,
 				D593B7B227E2378500EE1B59 /* GameViewController.swift in Sources */,
-				2ADC1F2C27F395F5006FA96D /* AssembleBlockChoice.swift in Sources */,
+				2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */,
 				D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */,
-				2A1037ED27ED68000042D609 /* TemplateOutline.swift in Sources */,
+				2A1037ED27ED68000042D609 /* Template.swift in Sources */,
 				D593B7AA27E2378500EE1B59 /* AppDelegate.swift in Sources */,
 				D55B208127F3920F006D16C3 /* Utils.swift in Sources */,
 			);
