@@ -24,14 +24,25 @@ let t3 = [(1,0), (2,0), (3,0), (4,0), (5,0),
 
 class Template : SKNode {
     
+    let size: (x: Int, y: Int)
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structure: [(Int, Int)]) {
+    init(structure: [(x: Int, y: Int)]) {
+        size = (
+            structure.map(\.x).max() ?? 0, //need to add one?
+            structure.map(\.y).max() ?? 0
+        )
         super.init()
+
         let template = Shape(structurePos: structure, image: "templateBlock")
         addChild(template)
+        
+        //let size = template.size
     }
+    
+    
 }
    

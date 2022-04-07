@@ -8,16 +8,22 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    let template: Template
 
     required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
 
     override init(size: CGSize) {
-      super.init(size: size)
+        template = Template(structure: t3)
 
-        let template = Template(structure: t3)
-        template.position = CGPoint(x: size.width/5, y: size.height/2) //puts template in front of pieces
+        super.init(size: size)
+
+        let centeredX = Int(size.width)/2 - (((template.size.x) * blockSize)/2)
+        let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
+        let center = CGPoint(x: centeredX, y: centeredY)
+        template.position = snapToGrid(coord: center)
         template.zPosition = 0
         self.addChild(template)
 
@@ -67,12 +73,45 @@ class GameScene: SKScene {
             if let touchedBlock = touchedNode.parent?.parent as? Piece {
                 touchedBlock.zPosition = 1
             }
+ 
+            if let touchedBlock = touchedNode.parent?.parent as? Piece {
+                print(template)
+                touchedBlock.position = snapToGrid(coord: touchedBlock.position)
+            }
         }
     }
-
     
-    //converts from grid coordinates to screen ones
-    func sceneToGrid(gridCoord:(Int, Int)){
-
+    func snapToGrid(coord: CGPoint) -> CGPoint{
+        let point = sceneToGrid(coord: coord)
+        return gridToScene(gridPoint: point)
+    }
+    
+    //converts from CGPoint to grid point
+    func sceneToGrid(coord: CGPoint) -> (Int, Int){
+        var x = Double(coord.x)
+        x = x / Double(blockSize)
+        let roundedX = Int(x.rounded())
+        
+        var y = Double(coord.y)
+        y = y / Double(blockSize)
+        let roundedY = Int(y.rounded())
+        
+        return (roundedX, roundedY)
+    }
+    
+    //converts from (Int, Int) to CGPoint
+    func gridToScene(gridPoint:(x:Int, y:Int)) -> CGPoint{
+        let coord = CGPoint(
+            x: gridPoint.x * blockSize,
+            y: gridPoint.y * blockSize)
+        return coord
+    }
+    
+    func tapRotate(_ gestureRecognizer: UITapGestureRecognizer){ //on tap, will just store position in varibale, delete from screen, generate new piece (shape rotated 90) in same position
+        guard gestureRecognizer.view != nil else { return }
+               
+          if gestureRecognizer.state == .ended {
+            
+          }
     }
 }

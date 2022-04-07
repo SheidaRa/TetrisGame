@@ -13,9 +13,6 @@ let blockSize = 40
 /// Size of the sprite image for each block.
 let blockImageSize = 90
 
-let pieceLineW = 3
-let templateLineW = 6
-
 
 /**
  Creates blocks of specified colors & assembles based on given structure
@@ -50,12 +47,5 @@ class Shape : SKNode {
             y: blockSize * y + blockSize / 2)
         return singleBlock
     }
-    
-    func blockSettings(block: SKShapeNode, fillColor: SKColor, lineColor: SKColor, lineWidth: Int){
-        block.fillColor = fillColor
-        block.lineWidth = CGFloat(lineWidth)
-        block.strokeColor = lineColor
-    }
-    
-    
+
 }
