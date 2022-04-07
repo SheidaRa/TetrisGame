@@ -17,6 +17,9 @@ class GameScene: SKScene {
 
     override init(size: CGSize) {
         template = Template(structure: t3)
+        
+        let xRange = SKRange(lowerLimit: 0, upperLimit: size.width)
+        let yRange = SKRange(lowerLimit: 0, upperLimit: size.height)
 
         super.init(size: size)
 
@@ -28,26 +31,31 @@ class GameScene: SKScene {
         self.addChild(template)
 
         let piece1 = Piece(structure: stairShape, blockColor: "redBlock")
+        piece1.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
         piece1.position = CGPoint(x: 80, y: 150)
         piece1.zPosition = 1
         addChild(piece1)
         
         let piece2 = Piece(structure: tShape, blockColor: "blueBlock")
+        piece2.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
         piece2.position = CGPoint(x: 0, y: 150)
         piece2.zPosition = 1
         self.addChild(piece2)
 
         let piece3 = Piece(structure: squareShape, blockColor: "yellowBlock")
+        piece3.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
         piece3.position = CGPoint(x: 50, y: 50)
         piece3.zPosition = 1
         self.addChild(piece3)
 
         let piece4 = Piece(structure: pShape, blockColor: "purpleBlock")
+        piece4.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
         piece4.position = CGPoint(x: 245, y: 150)
         piece4.zPosition = 1
         self.addChild(piece4)
 
         let piece5 = Piece(structure: uShape, blockColor: "greenBlock")
+        piece5.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
         piece5.position = CGPoint(x: 180, y: 20)
         piece5.zPosition = 1
         self.addChild(piece5)
