@@ -10,23 +10,28 @@ import SpriteKit
 class GameScene: SKScene {
     
     let template: Template
+    
+    let offset: Int
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override init(size: CGSize) {
-        template = Template(structure: t3)
+        template = Template(structure: t2)
         
         let xRange = SKRange(lowerLimit: 0, upperLimit: size.width)
         let yRange = SKRange(lowerLimit: 0, upperLimit: size.height)
+        
+        let centeredX = Int((size.width))/2 - (((template.size.x+1) * blockSize)/2)
+        
+        offset = centeredX % blockSize
 
         super.init(size: size)
-
-        let centeredX = Int(size.width)/2 - (((template.size.x) * blockSize)/2)
+        
         let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
         let center = CGPoint(x: centeredX, y: centeredY)
-        template.position = snapToGrid(coord: center)
+        template.position = center
         template.zPosition = 0
         self.addChild(template)
 
@@ -50,7 +55,7 @@ class GameScene: SKScene {
 
         let piece4 = Piece(structure: pShape, blockColor: "purpleBlock")
         piece4.constraints = [SKConstraint.positionX(xRange), SKConstraint.positionY(yRange)]
-        piece4.position = CGPoint(x: 245, y: 150)
+        piece4.position = CGPoint(x: 25, y: 300)
         piece4.zPosition = 1
         self.addChild(piece4)
 
@@ -59,6 +64,7 @@ class GameScene: SKScene {
         piece5.position = CGPoint(x: 180, y: 20)
         piece5.zPosition = 1
         self.addChild(piece5)
+        
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -68,7 +74,7 @@ class GameScene: SKScene {
 
             let touchedNode = atPoint(prevTouchPos)
             if let touchedBlock = touchedNode.parent?.parent as? Piece { //
-                touchedBlock.zPosition = 3
+                touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedBlock.position += curTouchPos - prevTouchPos
             }
         }
@@ -78,12 +84,9 @@ class GameScene: SKScene {
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
             let touchedNode = atPoint(prevTouchPos)
+
             if let touchedBlock = touchedNode.parent?.parent as? Piece {
-                touchedBlock.zPosition = 1
-            }
- 
-            if let touchedBlock = touchedNode.parent?.parent as? Piece {
-                print(template)
+                print(template) //see if piece and template overlap, use CGRect in template to see if bounding rectangles overlap one another, then snap to grid
                 touchedBlock.position = snapToGrid(coord: touchedBlock.position)
             }
         }
@@ -96,7 +99,7 @@ class GameScene: SKScene {
     
     //converts from CGPoint to grid point
     func sceneToGrid(coord: CGPoint) -> (Int, Int){
-        var x = Double(coord.x)
+        var x = Double(coord.x) - Double(offset)
         x = x / Double(blockSize)
         let roundedX = Int(x.rounded())
         
@@ -110,8 +113,9 @@ class GameScene: SKScene {
     //converts from (Int, Int) to CGPoint
     func gridToScene(gridPoint:(x:Int, y:Int)) -> CGPoint{
         let coord = CGPoint(
-            x: gridPoint.x * blockSize,
-            y: gridPoint.y * blockSize)
+            x: (gridPoint.x * blockSize) + offset,
+            y: (gridPoint.y * blockSize) )
+        print("coord x: ", coord.x)
         return coord
     }
     
