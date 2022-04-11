@@ -124,11 +124,21 @@ class GameScene: SKScene {
         return coord
     }
     
-    func tapRotate(_ gestureRecognizer: UITapGestureRecognizer){ //on tap, will just store position in varibale, delete from screen, generate new piece (shape rotated 90) in same position
+    func tapRotate(_ gestureRecognizer: UITapGestureRecognizer, _ touch: UITouch){ //on tap, will just store position in varibale, delete from screen, generate new piece (shape rotated 90) in same position
         guard gestureRecognizer.view != nil else { return }
                
           if gestureRecognizer.state == .ended {
             
           }
+        
+        let touchedNode = atPoint(touch.location(in: self))
+
+        if let touchedBlock = touchedNode.parent?.parent as? Piece {
+            touchedBlock.removeFromParent()
+            let piece5 = Piece(structure: uShape, blockColor: "greenBlock")
+            piece5.position = CGPoint(x: 180, y: 20)
+            piece5.zPosition = 1
+            self.addChild(piece5)
+        }
     }
 }
