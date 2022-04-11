@@ -11,7 +11,7 @@ class GameScene: SKScene {
     
     let template: Template
     
-    let offset: Int
+    let gridOffset: Int
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,14 +24,13 @@ class GameScene: SKScene {
 //        let yRange = SKRange(lowerLimit: 0, upperLimit: size.height)
         
         let centeredX = Int((size.width))/2 - (((template.size.x+1) * blockSize)/2)
+        let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
         
-        offset = centeredX % blockSize
+        gridOffset = centeredX % blockSize
 
         super.init(size: size)
         
-        let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
-        let center = CGPoint(x: centeredX, y: centeredY)
-        template.position = center
+        template.position = CGPoint(x: centeredX, y: centeredY)
         template.zPosition = 0
         self.addChild(template)
 
@@ -104,12 +103,10 @@ class GameScene: SKScene {
     
     //converts from CGPoint to grid point
     func sceneToGrid(coord: CGPoint) -> (Int, Int){
-        var x = Double(coord.x) - Double(offset)
-        x = x / Double(blockSize)
+        let x = (Double(coord.x) - Double(gridOffset)) / Double(blockSize)
         let roundedX = Int(x.rounded())
         
-        var y = Double(coord.y)
-        y = y / Double(blockSize)
+        let y = Double(coord.y) / Double(blockSize)
         let roundedY = Int(y.rounded())
         
         return (roundedX, roundedY)
@@ -117,14 +114,13 @@ class GameScene: SKScene {
     
     //converts from (Int, Int) to CGPoint
     func gridToScene(gridPoint:(x:Int, y:Int)) -> CGPoint{
-        let coord = CGPoint(
-            x: (gridPoint.x * blockSize) + offset,
+        return CGPoint(
+            x: (gridPoint.x * blockSize) + gridOffset,
             y: (gridPoint.y * blockSize) )
-        print("coord x: ", coord.x)
-        return coord
     }
     
     func tapRotate(_ gestureRecognizer: UITapGestureRecognizer, _ touch: UITouch){ //on tap, will just store position in varibale, delete from screen, generate new piece (shape rotated 90) in same position
+
         guard gestureRecognizer.view != nil else { return }
                
           if gestureRecognizer.state == .ended {
