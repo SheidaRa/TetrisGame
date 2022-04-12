@@ -92,6 +92,7 @@ class GameScene: SKScene {
             if let touchedBlock = touchedNode.parent?.parent as? Piece {
                 print(template) //see if piece and template overlap, use CGRect in template to see if bounding rectangles overlap one another, then snap to grid
                 touchedBlock.position = snapToGrid(coord: touchedBlock.position)
+touchedBlock.shape.rotate() // just for testing!!
             }
         }
     }
@@ -130,11 +131,12 @@ class GameScene: SKScene {
         let touchedNode = atPoint(touch.location(in: self))
 
         if let touchedBlock = touchedNode.parent?.parent as? Piece {
-            touchedBlock.removeFromParent()
-            let piece5 = Piece(structure: uShape, blockColor: "greenBlock")
-            piece5.position = CGPoint(x: 180, y: 20)
-            piece5.zPosition = 1
-            self.addChild(piece5)
+            touchedBlock.shape.rotate()
+//            touchedBlock.removeFromParent()
+//            let piece5 = Piece(structure: uShape, blockColor: "greenBlock")
+//            piece5.position = CGPoint(x: 180, y: 20)
+//            piece5.zPosition = 1
+//            self.addChild(piece5)
         }
     }
 }

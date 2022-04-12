@@ -19,27 +19,38 @@ let blockImageSize = 90
  */
 class Shape : SKNode {
     
-    let size: (x: Int, y: Int)
+    let image: String
+    
+    var layout: [(x: Int, y: Int)] = [] {
+        didSet {
+            removeAllChildren()
+            for (x, y) in layout {
+                let block = createBlock(x:x,y:y, imageName: image)
+                addChild(block)
+            }
+        }
+    }
+    
+    var size: (x: Int, y: Int) {
+        (
+            layout.map(\.x).max() ?? 0,
+            layout.map(\.y).max() ?? 0
+        )
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structurePos : [(x: Int, y: Int)], image: String) {
-        size = (
-            structurePos.map(\.x).max() ?? 0,
-            structurePos.map(\.y).max() ?? 0
-        )
-
+    init(layout: [(x: Int, y: Int)], image: String) {
+        self.image = image
         super.init()
-        
-        for (x, y) in structurePos {
-            let block = createBlock(x:x,y:y, imageName: image)
-            addChild(block)
+        defer {  // didSet will not run until after init is finished
+            self.layout = layout
         }
     }
     
-    func createBlock(x: Int, y: Int, imageName: String) -> SKSpriteNode{
+    func createBlock(x: Int, y: Int, imageName: String) -> SKSpriteNode {
         let singleBlock = SKSpriteNode(imageNamed: imageName)
         singleBlock.size = CGSize(width: blockImageSize, height: blockImageSize)
         singleBlock.position = CGPoint(
@@ -47,5 +58,11 @@ class Shape : SKNode {
             y: blockSize * y + blockSize / 2)
         return singleBlock
     }
-
+    
+    func rotate() {
+        let newLayout = layout.map { (x,y) in (x: y, y: -x) }
+        let minX = newLayout.map(\.x).min() ?? 0
+        let minY = newLayout.map(\.y).min() ?? 0
+        self.layout = newLayout.map{ (x,y) in (x - minX, y - minY) }
+    }
 }

@@ -55,14 +55,17 @@ let stairShape = [
     (3,2), (2,2),
     (2,3), (1,3)]
 
-class Piece : SKNode{
+class Piece : SKNode {
+    
+    let shape: Shape
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structure : [(Int, Int)], blockColor: String) {
+    init(structure: [(Int, Int)], blockColor: String) {
+        self.shape = Shape(layout: structure, image: blockColor)
         super.init()
-        addChild(Shape(structurePos: structure, image: blockColor))
+        addChild(shape)
     }
 }
