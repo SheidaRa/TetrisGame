@@ -74,9 +74,9 @@ class GameScene: SKScene {
                 
                 // if the piece's position change is in the screen, frame, then allow the position to change, otherwise, don't change the position
                 if (changedPosition.x >= frame.minX
-                    && changedPosition.x <= frame.maxX
+                    && changedPosition.x + CGFloat((touchedBlock.size.x+1) * blockSize) < frame.maxX
                     && changedPosition.y >= frame.minY
-                    && changedPosition.y <= frame.maxY)
+                    && changedPosition.y + CGFloat((touchedBlock.size.y+1) * blockSize) < frame.maxY)
                 {
                     touchedBlock.position += curTouchPos - prevTouchPos
                 }
@@ -92,7 +92,7 @@ class GameScene: SKScene {
             if let touchedBlock = touchedNode.parent?.parent as? Piece {
                 print(template) //see if piece and template overlap, use CGRect in template to see if bounding rectangles overlap one another, then snap to grid
                 touchedBlock.position = snapToGrid(coord: touchedBlock.position)
-touchedBlock.shape.rotate() // just for testing!!
+//touchedBlock.shape.rotate() // just for testing!!
             }
         }
     }
