@@ -126,4 +126,21 @@ class GameScene: SKScene {
             
           }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+
+
+
