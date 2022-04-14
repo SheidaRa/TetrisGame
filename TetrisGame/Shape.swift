@@ -11,7 +11,7 @@ import SpriteKit
 let blockSize = 40
 
 /// Size of the sprite image for each block.
-let blockImageSize = 90
+let blockImageSize = 40
 
 
 /**

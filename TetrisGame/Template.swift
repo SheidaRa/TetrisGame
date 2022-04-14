@@ -37,7 +37,7 @@ class Template : SKNode {
         )
         super.init()
 
-        let template = Shape(layout: structure, image: "templateBlock")
+        let template = Shape(layout: structure, image: "blueBlock")
         addChild(template)
         
         //let size = template.size
