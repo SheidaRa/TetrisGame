@@ -18,7 +18,8 @@ class GameScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // constructor for GameScene
     override init(size: CGSize) {
         template = Template(structure: t2)
         
@@ -64,11 +65,13 @@ class GameScene: SKScene {
         self.addChild(piece5)
     }
     
+    // override function to check if the tetris piece moves or not
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
+    // creates a function to handle tap gesture to rotate the piece
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
@@ -78,11 +81,13 @@ class GameScene: SKScene {
         }
     }
     
+    // function to check if the piece tapped or moved is a tetris piece or not
     func piece(at pos: CGPoint) -> Piece? {
         let node = atPoint(pos)
         return node.parent?.parent as? Piece
     }
 
+    // function to handle tetris piece movement
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let curTouchPos = touch.location(in: self)
@@ -104,6 +109,7 @@ class GameScene: SKScene {
         }
     }
     
+    // function that handles tetris piece situation when the touch movements end
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
