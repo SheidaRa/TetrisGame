@@ -39,8 +39,6 @@ class Template : SKNode {
 
         let template = Shape(layout: structure, image: "blueBlock")
         addChild(template)
-        
-        //let size = template.size
     }
     
     

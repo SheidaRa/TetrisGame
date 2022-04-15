@@ -11,7 +11,8 @@ import SpriteKit
 let blockSize = 40
 
 /// Size of the sprite image for each block.
-let blockImageSize = 40
+let blockImageSize = 41 //90
+
 
 
 /**
@@ -20,6 +21,7 @@ let blockImageSize = 40
 class Shape : SKNode {
     
     let image: String
+    
     
     var layout: [(x: Int, y: Int)] = [] {
         didSet {
@@ -31,12 +33,14 @@ class Shape : SKNode {
         }
     }
     
-    var size: (x: Int, y: Int) {
+    var size: (x: Int, y: Int) { //size isn't updated when rotated
         (
             layout.map(\.x).max() ?? 0,
             layout.map(\.y).max() ?? 0
         )
     }
+    
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

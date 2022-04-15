@@ -14,6 +14,8 @@ class GameScene: SKScene {
     let gridXOffset: Int
     
     let gridYOffset: Int
+    
+    let gridWidth: Int
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -22,11 +24,12 @@ class GameScene: SKScene {
     // constructor for GameScene
     override init(size: CGSize) {
         template = Template(structure: t2)
+        gridWidth = Int((Double(size.width)/40).rounded())
         
 //        let xRange = SKRange(lowerLimit: 0, upperLimit: size.width)
 //        let yRange = SKRange(lowerLimit: 0, upperLimit: size.height)
         
-        let centeredX = Int((size.width))/2 - (((template.size.x+1) * blockSize)/2)
+        let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
         
         gridXOffset = centeredX % blockSize
@@ -97,19 +100,39 @@ class GameScene: SKScene {
                 touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 let changedPosition = touchedBlock.position + (curTouchPos - prevTouchPos)
                 
-                // if the piece's position change is in the screen, frame, then allow the position to change, otherwise, don't change the position
-                if (changedPosition.x >= frame.minX
-                    //&& changedPosition.x + CGFloat((touchedBlock.size.x+1) * blockSize) < frame.maxX
-                    && changedPosition.y >= frame.minY
-                    && changedPosition.y + CGFloat((touchedBlock.size.y+1) * blockSize) < frame.maxY)
-                {
+        
+                if (changedPosition.x > frame.minX && changedPosition.y > frame.minY) {
                     touchedBlock.position += curTouchPos - prevTouchPos
+                }
+                if pieceEdge(piece: touchedBlock, coord: changedPosition).x > frame.maxX {
+                    let x = frame.maxX - (CGFloat((touchedBlock.size.x+1) * blockSize))
+                    touchedBlock.position = snapToGrid(coord: CGPoint(x: x, y: changedPosition.y))
+                }
+                if pieceEdge(piece: touchedBlock, coord: changedPosition).x < frame.minX {
+                    touchedBlock.position = CGPoint(x: 0, y: changedPosition.y)
+                }
+//                if pieceEdge(piece: touchedBlock, coord: changedPosition).y < frame.minY {
+//                    touchedBlock.position = CGPoint(x: changedPosition.x, y: frame.minY)
+//                }
+                if pieceEdge(piece: touchedBlock, coord: changedPosition).y > frame.maxY {
+                    //touchedBlock.position = CGPoint(x: 0, y: 0)
+                    let y = frame.maxY - (CGFloat((touchedBlock.size.y+1) * blockSize))
+                    touchedBlock.position = snapToGrid(coord: CGPoint(x: changedPosition.x, y: y))
                 }
             }
         }
     }
     
     // function that handles tetris piece situation when the touch movements end
+
+    func pieceEdge(piece: Piece, coord: CGPoint) -> CGPoint {
+        return CGPoint(
+            x: coord.x + CGFloat((piece.size.x+1) * blockSize),
+            y: coord.y + CGFloat((piece.size.y+1) * blockSize)
+        )
+    }
+    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
@@ -129,12 +152,9 @@ class GameScene: SKScene {
     //converts from CGPoint to grid point
     func sceneToGrid(coord: CGPoint) -> (Int, Int){
         let x = (Double(coord.x) - Double(gridXOffset)) / Double(blockSize)
-        let roundedX = Int(x.rounded())
-        
         let y = (Double(coord.y) - Double(gridYOffset)) / Double(blockSize)
-        let roundedY = Int(y.rounded())
         
-        return (roundedX, roundedY)
+        return (Int(x.rounded()), Int(y.rounded()))
     }
     
     //converts from (Int, Int) to CGPoint
@@ -143,21 +163,4 @@ class GameScene: SKScene {
             x: (gridPoint.x * blockSize) + gridXOffset,
             y: (gridPoint.y * blockSize) + gridYOffset)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
-
-
-

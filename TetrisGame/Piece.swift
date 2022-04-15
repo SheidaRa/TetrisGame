@@ -29,8 +29,8 @@ let pShape = [
     (0,2),(1,2)]
 
 let uShape = [
-    (1,1),(2,1), (3,1),
-    (1,2),(3,2)]
+    (0,0),(1,0), (2,0),
+    (0,1),(2,1)]
 
 let tShape = [
     (1,0),
@@ -38,15 +38,17 @@ let tShape = [
     (0,2), (1,2),(2,2)]
 
 let stairShape = [
-    (3,1),
-    (3,2), (2,2),
-    (2,3), (1,3)]
+    (2,0),
+    (2,1), (1,1),
+    (1,2), (0,2)]
 
 class Piece : SKNode {
     
     let shape: Shape
     
-    let size: (x: Int, y: Int)
+    var size: (x: Int, y: Int) { //size isn't updated when rotated
+        shape.size
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -54,7 +56,7 @@ class Piece : SKNode {
     
     init(structure: [(Int, Int)], blockColor: String) {
         self.shape = Shape(layout: structure, image: blockColor)
-        size = shape.size
+//        size = shape.size
         super.init()
         addChild(shape)
         
