@@ -23,12 +23,9 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        template = Template(structure: t2)
+        template = Template(structure: t3)
         gridWidth = Int((Double(size.width)/40).rounded())
-        
-//        let xRange = SKRange(lowerLimit: 0, upperLimit: size.width)
-//        let yRange = SKRange(lowerLimit: 0, upperLimit: size.height)
-        
+      
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
         
@@ -98,40 +95,25 @@ class GameScene: SKScene {
 
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
-                let changedPosition = touchedBlock.position + (curTouchPos - prevTouchPos)
+                touchedBlock.position += curTouchPos - prevTouchPos
                 
-        
-                if (changedPosition.x > frame.minX && changedPosition.y > frame.minY) {
-                    touchedBlock.position += curTouchPos - prevTouchPos
+                if touchedBlock.position.x < 0 {
+                    touchedBlock.position = CGPoint(x: 0, y: touchedBlock.position.y)
                 }
-                if pieceEdge(piece: touchedBlock, coord: changedPosition).x > frame.maxX {
+                if touchedBlock.maxX(piece: touchedBlock, coord: touchedBlock.position) > frame.maxX {
                     let x = frame.maxX - (CGFloat((touchedBlock.size.x+1) * blockSize))
-                    touchedBlock.position = snapToGrid(coord: CGPoint(x: x, y: changedPosition.y))
+                    touchedBlock.position = CGPoint(x: x, y: touchedBlock.position.y)
                 }
-                if pieceEdge(piece: touchedBlock, coord: changedPosition).x < frame.minX {
-                    touchedBlock.position = CGPoint(x: 0, y: changedPosition.y)
-                }
-//                if pieceEdge(piece: touchedBlock, coord: changedPosition).y < frame.minY {
-//                    touchedBlock.position = CGPoint(x: changedPosition.x, y: frame.minY)
-//                }
-                if pieceEdge(piece: touchedBlock, coord: changedPosition).y > frame.maxY {
-                    //touchedBlock.position = CGPoint(x: 0, y: 0)
+                if touchedBlock.maxY(piece: touchedBlock, coord: touchedBlock.position) > frame.maxY{
                     let y = frame.maxY - (CGFloat((touchedBlock.size.y+1) * blockSize))
-                    touchedBlock.position = snapToGrid(coord: CGPoint(x: changedPosition.x, y: y))
+                    touchedBlock.position = CGPoint(x: touchedBlock.position.x, y: y)
+                }
+                if touchedBlock.position.y < 0 {
+                    touchedBlock.position = CGPoint(x: touchedBlock.position.x, y: 1)
                 }
             }
         }
     }
-    
-    // function that handles tetris piece situation when the touch movements end
-
-    func pieceEdge(piece: Piece, coord: CGPoint) -> CGPoint {
-        return CGPoint(
-            x: coord.x + CGFloat((piece.size.x+1) * blockSize),
-            y: coord.y + CGFloat((piece.size.y+1) * blockSize)
-        )
-    }
-    
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
