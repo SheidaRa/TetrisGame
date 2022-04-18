@@ -21,6 +21,7 @@
 		D593B7CE27E2378500EE1B59 /* TetrisGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B7CD27E2378500EE1B59 /* TetrisGameUITests.swift */; };
 		D593B7D027E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B7CF27E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift */; };
 		D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B82827EA73BE00EE1B59 /* Piece.swift */; };
+		D5A0E164280D0E7F00605144 /* SolutionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A0E163280D0E7F00605144 /* SolutionChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		D593B7CD27E2378500EE1B59 /* TetrisGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisGameUITests.swift; sourceTree = "<group>"; };
 		D593B7CF27E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D593B82827EA73BE00EE1B59 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		D5A0E163280D0E7F00605144 /* SolutionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolutionChecker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				D593B82827EA73BE00EE1B59 /* Piece.swift */,
 				2A1037EC27ED68000042D609 /* Template.swift */,
 				D55B208027F3920F006D16C3 /* Utils.swift */,
+				D5A0E163280D0E7F00605144 /* SolutionChecker.swift */,
 			);
 			path = TetrisGame;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				D593B7B027E2378500EE1B59 /* GameScene.swift in Sources */,
 				D593B7B227E2378500EE1B59 /* GameViewController.swift in Sources */,
+				D5A0E164280D0E7F00605144 /* SolutionChecker.swift in Sources */,
 				2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */,
 				D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */,
 				2A1037ED27ED68000042D609 /* Template.swift in Sources */,

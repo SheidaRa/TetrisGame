@@ -122,6 +122,7 @@ class GameScene: SKScene {
             if let touchedBlock = piece(at: prevTouchPos) {
                 //print(template) //see if piece and template overlap, use CGRect in template to see if bounding rectangles overlap one another, then snap to grid
                 touchedBlock.position = snapToGrid(coord: touchedBlock.position)
+                // It always snaps no matter what  (we should need a condition it to be a template piece)
             }
         }
     }
