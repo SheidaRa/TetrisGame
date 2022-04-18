@@ -95,6 +95,7 @@ let trailJumpShape = [
 
 
 
+
 class Piece : SKNode {
     
     let shape: Shape
