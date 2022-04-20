@@ -11,89 +11,103 @@ let squareShape = [
     (0,0),
     (0,1),
     (1,0),
-    (1,1)]
+    (1,1)
+].map(GridPoint.init)
 
 let zShape = [
     (1,0), (2,0),
     (1,1),
-    (1,2), (0,2)]
+    (1,2), (0,2)
+].map(GridPoint.init)
 
 let cornerShape = [
     (1,0),
     (1,1),
-    (1,2), (2,2), (3,2)]
+    (1,2), (2,2), (3,2)
+].map(GridPoint.init)
 
 let pShape = [
     (0,0),
     (0,1),(1,1),
-    (0,2),(1,2)]
+    (0,2),(1,2)
+].map(GridPoint.init)
 
 let uShape = [
     (0,0),(1,0), (2,0),
-    (0,1),(2,1)]
+    (0,1),(2,1)
+].map(GridPoint.init)
 
 let tShape = [
     (0,0),
     (0,1),
-    (0,2), (-1,2),(1,2)]
+    (0,2), (-1,2),(1,2)
+].map(GridPoint.init)
 
 let wShape = [
     (0,0),
     (1,0), (1,1),
-    (2,1), (2,2)]
+    (2,1), (2,2)
+].map(GridPoint.init)
 
-let stairShape = [
+let stairShape = [ //not sure what shape this is?
     (0,0),
     (0,1),
-    (-1,1),(-1,2)]
+    (-1,1),(-1,2)
+].map(GridPoint.init)
 
 let bomrangLShape = [
     (0,0),
     (0,1), (1,2),
-    (0,2),(2,2),]
+    (0,2),(2,2)
+].map(GridPoint.init)
 
 let longLShape = [
     (0,0),
     (0,1),(0,3),
-    (0,2),(1,0),]
+    (0,2),(1,0)
+].map(GridPoint.init)
 
 let idkShape = [
     (0,0),
     (-1,0),
-    (1,0),(0,1),]
+    (1,0),(0,1)
+].map(GridPoint.init)
 
 let trailShape = [
     (0,0),
     (0,1),(0,3),
-    (0,2),(0,4),]
+    (0,2),(0,4)
+].map(GridPoint.init)
 
 let plusShape = [
     (0,0),
     (-1,0),(0,1),
-    (1,0),(0,-1),]
+    (1,0),(0,-1)
+].map(GridPoint.init)
 
 let longzShape = [
-    (0,0),
-    (0,-1),(0,1),
-    (1,-1),(-1,1),]
+    (6,0),
+    (6,-1),(6,1),
+    (7,-1),(5,1)
+].map(GridPoint.init)
 
 let longStairShape = [
     (0,0),
     (0,1),(-1,2),
-    (0,2),(-1,3),]
+    (0,2),(-1,3)
+].map(GridPoint.init)
 
 let idk2Shape = [
     (0,0),
     (1,0),(1,1),
-    (1,-1),(2,1),]
+    (1,-1),(2,1)
+].map(GridPoint.init)
 
 let trailJumpShape = [
     (0,0),
     (0,1),(0,3),
-    (0,2),(-1,2),]
-
-
-
+    (0,2),(-1,2)
+].map(GridPoint.init)
 
 
 class Piece : SKNode {
@@ -109,7 +123,7 @@ class Piece : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structure: [(Int, Int)], blockColor: String) {
+    init(structure: [GridPoint], blockColor: String) {
         self.shape = Shape(layout: structure, image: blockColor)
 //        size = shape.size
         super.init()
