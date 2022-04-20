@@ -64,7 +64,7 @@ class GameScene: SKScene {
         piece5.zPosition = 1
         self.addChild(piece5)
         
-        let piece6 = Piece(structure: stairShape, blockColor: "B6")
+        let piece6 = Piece(structure: wShape, blockColor: "B6")
         piece6.position = CGPoint(x: 60, y: 30)
         piece6.zPosition = 1
         self.addChild(piece6)
@@ -114,7 +114,7 @@ class GameScene: SKScene {
         piece15.zPosition = 1
         self.addChild(piece15)
         
-        
+      
         
         
         
