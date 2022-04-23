@@ -38,9 +38,9 @@ let uShape = [
 ].map(GridPoint.init)
 
 let tShape = [
-    (0,0),
-    (0,1),
-    (0,2), (-1,2),(1,2)
+    (1,0),
+    (1,1),
+    (1,2), (0,2),(2,2)
 ].map(GridPoint.init)
 
 let wShape = [
@@ -50,9 +50,9 @@ let wShape = [
 ].map(GridPoint.init)
 
 let stairShape = [ //not sure what shape this is?
-    (0,0),
-    (0,1),
-    (-1,1),(-1,2)
+    (1,0),
+    (1,1),
+    (0,1),(0,2)
 ].map(GridPoint.init)
 
 let bomrangLShape = [
@@ -68,9 +68,9 @@ let longLShape = [
 ].map(GridPoint.init)
 
 let idkShape = [
+    (1,0),
     (0,0),
-    (-1,0),
-    (1,0),(0,1)
+    (2,0),(1,1)
 ].map(GridPoint.init)
 
 let trailShape = [
@@ -80,21 +80,21 @@ let trailShape = [
 ].map(GridPoint.init)
 
 let plusShape = [
-    (0,0),
-    (-1,0),(0,1),
-    (1,0),(0,-1)
+    (1,0),
+    (1,1),(2,1),
+    (1,2),(0,1)
 ].map(GridPoint.init)
 
 let longzShape = [
-    (6,0),
-    (6,-1),(6,1),
-    (7,-1),(5,1)
+    (0,0),
+    (1,0),(1,2),
+    (1,1),(2,2)
 ].map(GridPoint.init)
 
 let longStairShape = [
-    (0,0),
-    (0,1),(-1,2),
-    (0,2),(-1,3)
+    (1,0),
+    (1,1),(0,2),
+    (1,2),(0,3)
 ].map(GridPoint.init)
 
 let idk2Shape = [
@@ -104,9 +104,9 @@ let idk2Shape = [
 ].map(GridPoint.init)
 
 let trailJumpShape = [
-    (0,0),
-    (0,1),(0,3),
-    (0,2),(-1,2)
+    (1,0),
+    (1,1),(1,3),
+    (1,2),(0,2)
 ].map(GridPoint.init)
 
 
