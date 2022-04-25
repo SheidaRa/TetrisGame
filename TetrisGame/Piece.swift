@@ -50,9 +50,15 @@ let wShape = [
 ].map(GridPoint.init)
 
 let stairShape = [ //not sure what shape this is?
-    (1,0),
-    (1,1),
-    (0,1),(0,2)
+
+//    (1,0),
+//    (1,1),
+//    (0,1),(0,2)
+
+    (2,0),
+    (2,1), (1,1),
+    (1,2), (0,2)
+
 ].map(GridPoint.init)
 
 let bomrangLShape = [

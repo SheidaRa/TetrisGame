@@ -74,55 +74,55 @@ class GameScene: SKScene {
         self.addChild(piece5)
         piecesList.append(piece5)
         
-        let piece6 = Piece(structure: wShape, blockColor: "B6")
-        piece6.position = CGPoint(x: 60, y: 30)
-        piece6.zPosition = 1
-        self.addChild(piece6)
-        
-        let piece7 = Piece(structure: bomrangLShape, blockColor: "B7")
-        piece7.position = CGPoint(x: 60, y: 30)
-        piece7.zPosition = 1
-        self.addChild(piece7)
-        
-        let piece8 = Piece(structure: longLShape, blockColor: "B8")
-        piece8.position = CGPoint(x: 60, y: 30)
-        piece8.zPosition = 1
-        self.addChild(piece8)
-        
-        let piece9 = Piece(structure: idkShape, blockColor: "B9")
-        piece9.position = CGPoint(x: 60, y: 30)
-        piece9.zPosition = 1
-        self.addChild(piece9)
-        
-        let piece10 = Piece(structure: trailShape, blockColor: "B10")
-        piece10.position = CGPoint(x: 60, y: 30)
-        piece10.zPosition = 1
-        self.addChild(piece10)
-        
-        let piece11 = Piece(structure: plusShape, blockColor: "B11")
-        piece11.position = CGPoint(x: 60, y: 30)
-        piece11.zPosition = 1
-        self.addChild(piece11)
-        
-        let piece12 = Piece(structure: longzShape, blockColor: "B12")
-        piece12.position = CGPoint(x: 60, y: 30)
-        piece12.zPosition = 1
-        self.addChild(piece12)
-        
-        let piece13 = Piece(structure: longStairShape, blockColor: "B13")
-        piece13.position = CGPoint(x: 60, y: 30)
-        piece13.zPosition = 1
-        self.addChild(piece13)
-        
-        let piece14 = Piece(structure: idk2Shape, blockColor: "B14")
-        piece14.position = CGPoint(x: 60, y: 30)
-        piece14.zPosition = 1
-        self.addChild(piece14)
-        
-        let piece15 = Piece(structure: trailJumpShape, blockColor: "B15")
-        piece15.position = CGPoint(x: 60, y: 30)
-        piece15.zPosition = 1
-        self.addChild(piece15)
+//        let piece6 = Piece(structure: wShape, blockColor: "B6")
+//        piece6.position = CGPoint(x: 60, y: 30)
+//        piece6.zPosition = 1
+//        self.addChild(piece6)
+//
+//        let piece7 = Piece(structure: bomrangLShape, blockColor: "B7")
+//        piece7.position = CGPoint(x: 60, y: 30)
+//        piece7.zPosition = 1
+//        self.addChild(piece7)
+//
+//        let piece8 = Piece(structure: longLShape, blockColor: "B8")
+//        piece8.position = CGPoint(x: 60, y: 30)
+//        piece8.zPosition = 1
+//        self.addChild(piece8)
+//
+//        let piece9 = Piece(structure: idkShape, blockColor: "B9")
+//        piece9.position = CGPoint(x: 60, y: 30)
+//        piece9.zPosition = 1
+//        self.addChild(piece9)
+//
+//        let piece10 = Piece(structure: trailShape, blockColor: "B10")
+//        piece10.position = CGPoint(x: 60, y: 30)
+//        piece10.zPosition = 1
+//        self.addChild(piece10)
+//
+//        let piece11 = Piece(structure: plusShape, blockColor: "B11")
+//        piece11.position = CGPoint(x: 60, y: 30)
+//        piece11.zPosition = 1
+//        self.addChild(piece11)
+//
+//        let piece12 = Piece(structure: longzShape, blockColor: "B12")
+//        piece12.position = CGPoint(x: 60, y: 30)
+//        piece12.zPosition = 1
+//        self.addChild(piece12)
+//
+//        let piece13 = Piece(structure: longStairShape, blockColor: "B13")
+//        piece13.position = CGPoint(x: 60, y: 30)
+//        piece13.zPosition = 1
+//        self.addChild(piece13)
+//
+//        let piece14 = Piece(structure: idk2Shape, blockColor: "B14")
+//        piece14.position = CGPoint(x: 60, y: 30)
+//        piece14.zPosition = 1
+//        self.addChild(piece14)
+//
+//        let piece15 = Piece(structure: trailJumpShape, blockColor: "B15")
+//        piece15.position = CGPoint(x: 60, y: 30)
+//        piece15.zPosition = 1
+//        self.addChild(piece15)
     }
     
     // override function to check if the tetris piece moves or not
@@ -135,8 +135,14 @@ class GameScene: SKScene {
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
+                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
                 touchedPiece.position = snapToGrid(coord: touchedPiece.position)
+                print("won: ", hasWon())
+                print("overlap exists ", overlap())
+                if overlap() == true{
+                    touchedPiece.position = CGPoint(x: touchedPiece.position.x + 10, y: touchedPiece.position.y + 10)
+                }
             }
         }
     }
