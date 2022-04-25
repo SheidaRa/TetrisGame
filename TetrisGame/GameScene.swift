@@ -15,8 +15,6 @@ class GameScene: SKScene {
     
     let gridYOffset: Int
     
-    //let gridWidth: Int
-    
     var piecesList: [Piece]
     
     var offTemplate: Int = 0
@@ -31,10 +29,9 @@ class GameScene: SKScene {
     // constructor for GameScene
     override init(size: CGSize) {
         template = Template(structure: t4)
-        //gridWidth = Int((Double(size.width)/40).rounded())
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
-        let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
+        let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
         gridXOffset = centeredX % blockSize
         gridYOffset = centeredY % blockSize
         
@@ -81,10 +78,10 @@ print("Template: ", template.position)
         self.addChild(piece5)
         piecesList.append(piece5)
         
-//        let piece6 = Piece(structure: wShape, blockColor: "B6")
-//        piece6.position = CGPoint(x: 60, y: 30)
-//        piece6.zPosition = 1
-//        self.addChild(piece6)
+        let piece6 = Piece(structure: wShape, blockColor: "B6")
+        piece6.position = CGPoint(x: 60, y: 30)
+        piece6.zPosition = 1
+        self.addChild(piece6)
 //
 //        let piece7 = Piece(structure: bomrangLShape, blockColor: "B7")
 //        piece7.position = CGPoint(x: 60, y: 30)
@@ -199,7 +196,7 @@ print("Template: ", template.position)
                 print("overlap exists ", overlap(piece: touchedBlock))
                 if overlap(piece: touchedBlock) == true{
                     touchedBlock.position = CGPoint(x: touchedBlock.position.x + 10, y: touchedBlock.position.y + 10)
-                }
+                } 
                 print(touchedBlock.position)
             }
         }
@@ -214,8 +211,8 @@ print("Template: ", template.position)
             var allX = coord.map(\.x)
             var allY = coord.map(\.y)
             for _ in 1...allX.count{
-                let newX = Int(piece.position.x) + (Int(allX.removeFirst()) * blockSize)
-                let newY = Int(piece.position.y) + (Int(allY.removeFirst()) * blockSize)
+                let newX = Int(piece.position.x) + (Int(allX.removeFirst()) * blockSize) + blockSize
+                let newY = Int(piece.position.y) + (Int(allY.removeFirst()) * blockSize) + blockSize
                 coordList.append(GridPoint(x: newX, y: newY))
             }
         }
@@ -226,8 +223,8 @@ print("Template: ", template.position)
         var coordList: [GridPoint] = []
         let coord = template.shape.layout
         for block in coord{
-            let newX = Int(template.position.x) + (block.x * blockSize)
-            let newY = Int(template.position.y) + (block.y * blockSize)
+            let newX = Int(template.position.x) + (block.x * blockSize) + blockSize
+            let newY = Int(template.position.y) + (block.y * blockSize) + blockSize
             coordList.append(GridPoint(x: newX, y: newY))
         }
         return coordList
