@@ -21,6 +21,8 @@ class GameScene: SKScene {
     
     var offTemplate: Int = 0
     
+    let coordCon: CoordConversion
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -28,13 +30,15 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        template = Template(structure: t3)
+        template = Template(structure: t4)
         //gridWidth = Int((Double(size.width)/40).rounded())
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*3/5 - ((template.size.y * blockSize)/2)
         gridXOffset = centeredX % blockSize
         gridYOffset = centeredY % blockSize
+        
+        coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
         
         piecesList = []
 
@@ -43,6 +47,8 @@ class GameScene: SKScene {
         template.position = CGPoint(x: centeredX, y: centeredY)
         template.zPosition = 0
         self.addChild(template)
+        
+print("Template: ", template.position)
 
         let piece1 = Piece(structure: stairShape, blockColor: "B1")
         piece1.position = CGPoint(x: 80, y: 150)
@@ -63,7 +69,8 @@ class GameScene: SKScene {
         piecesList.append(piece3)
 
         let piece4 = Piece(structure: pShape, blockColor: "B4")
-        piece4.position = CGPoint(x: 25, y: 300)
+//        piece4.position = CGPoint(x: 25, y: 300)
+        piece4.position = CGPoint(x: 220, y: 150)
         piece4.zPosition = 1
         self.addChild(piece4)
         piecesList.append(piece4)
@@ -137,12 +144,13 @@ class GameScene: SKScene {
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
-                touchedPiece.position = snapToGrid(coord: touchedPiece.position)
-                print("won: ", hasWon())
-                print("overlap exists ", overlap())
-                if overlap() == true{
+                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
+//                print("won: ", hasWon())
+                if overlap(piece: touchedPiece) == true{
                     touchedPiece.position = CGPoint(x: touchedPiece.position.x + 10, y: touchedPiece.position.y + 10)
                 }
+                
+                print("overlap exists ", overlap(piece: touchedPiece))
             }
         }
     }
@@ -185,35 +193,16 @@ class GameScene: SKScene {
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
             if let touchedBlock = piece(at: prevTouchPos) {
-                touchedBlock.position = snapToGrid(coord: touchedBlock.position)
+                touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
                 // It always snaps no matter what  (we should need a condition it to be a template piece)
-                print("won: ", hasWon())
-                print("overlap exists ", overlap())
-                if overlap() == true{
+//                print("won: ", hasWon())
+                print("overlap exists ", overlap(piece: touchedBlock))
+                if overlap(piece: touchedBlock) == true{
                     touchedBlock.position = CGPoint(x: touchedBlock.position.x + 10, y: touchedBlock.position.y + 10)
                 }
+                print(touchedBlock.position)
             }
         }
-    }
-    
-    func snapToGrid(coord: CGPoint) -> CGPoint{
-        let point = sceneToGrid(coord: coord)
-        return gridToScene(gridPoint: point)
-    }
-    
-    //converts from CGPoint to GridPoint
-    func sceneToGrid(coord: CGPoint) -> GridPoint {
-        let x = (Double(coord.x) - Double(gridXOffset)) / Double(blockSize)
-        let y = (Double(coord.y) - Double(gridYOffset)) / Double(blockSize)
-        
-        return (GridPoint(x: Int(x.rounded()), y: Int(y.rounded())))
-    }
-    
-    //converts from GridPoint to CGPoint
-    func gridToScene(gridPoint: GridPoint) -> CGPoint{
-        return CGPoint(
-            x: (gridPoint.x * blockSize) + gridXOffset,
-            y: (gridPoint.y * blockSize) + gridYOffset)
     }
     
   
@@ -297,22 +286,18 @@ class GameScene: SKScene {
                 won = false
             }
         }
-//        if offTemplate > 0{ \\if extra pieces onscreen, if template covered, but shapes don't fit, not a win
-//            won = false
-//        }
         return won
     }
     
-    func overlap() -> Bool{ //instead make so takes piece as input and checks to see if already a piece in that pos?
+    func overlap(piece: Piece) -> Bool { //instead make so takes piece as input and checks to see if already a piece in that pos?
         var overlapping: Bool = false
         let pieceDic = createPieceDic()
         for coord in pieceDic.keys{
             if pieceDic[coord] != 1{
                 overlapping = true
+                //piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
             }
         }
         return overlapping
     }
-    
-    
 }
