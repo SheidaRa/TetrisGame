@@ -22,7 +22,8 @@
 		D593B7CE27E2378500EE1B59 /* TetrisGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B7CD27E2378500EE1B59 /* TetrisGameUITests.swift */; };
 		D593B7D027E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B7CF27E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift */; };
 		D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = D593B82827EA73BE00EE1B59 /* Piece.swift */; };
-		D5945BE8281721FF00C17F52 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5945BE7281721FE00C17F52 /* GameLevel.swift */; };
+		D5945BE8281721FF00C17F52 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5945BE7281721FE00C17F52 /* Level.swift */; };
+		D5B4776D28177753004F5C7B /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B4776C28177753004F5C7B /* GameLevel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +62,8 @@
 		D593B7CD27E2378500EE1B59 /* TetrisGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisGameUITests.swift; sourceTree = "<group>"; };
 		D593B7CF27E2378500EE1B59 /* TetrisGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D593B82827EA73BE00EE1B59 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
-		D5945BE7281721FE00C17F52 /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
+		D5945BE7281721FE00C17F52 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		D5B4776C28177753004F5C7B /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +175,8 @@
 		D5B4776B281776DD004F5C7B /* Game Level */ = {
 			isa = PBXGroup;
 			children = (
-				D5945BE7281721FE00C17F52 /* GameLevel.swift */,
+				D5B4776C28177753004F5C7B /* GameLevel.swift */,
+				D5945BE7281721FE00C17F52 /* Level.swift */,
 			);
 			path = "Game Level";
 			sourceTree = "<group>";
@@ -315,10 +318,11 @@
 				2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */,
 				D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */,
 				2A8C244E280E426400FC2A2B /* CoordConversion.swift in Sources */,
+				D5B4776D28177753004F5C7B /* GameLevel.swift in Sources */,
 				2A1037ED27ED68000042D609 /* Template.swift in Sources */,
 				D593B7AA27E2378500EE1B59 /* AppDelegate.swift in Sources */,
 				D55B208127F3920F006D16C3 /* Utils.swift in Sources */,
-				D5945BE8281721FF00C17F52 /* GameLevel.swift in Sources */,
+				D5945BE8281721FF00C17F52 /* Level.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
