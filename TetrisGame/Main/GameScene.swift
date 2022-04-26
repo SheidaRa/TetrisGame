@@ -43,6 +43,10 @@ class GameScene: SKScene {
         super.init(size: size)
         
         self.backgroundColor = SKColor.black
+        self.background.name = "background"
+        self.background.anchorPoint = CGPoint.zero
+        self.addChild(background)
+        
         template.position = CGPoint(x: centeredX, y: centeredY)
         template.zPosition = 1
         self.addChild(template)
@@ -144,7 +148,7 @@ class GameScene: SKScene {
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
 
-//                print("won: ", hasWon())
+                print("won: ", hasWon())
                 print("overlap exists ", overlap())
                 handleOverlap(piece: touchedBlock)
             }

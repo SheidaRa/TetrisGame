@@ -13,8 +13,6 @@ let blockSize = 35 //40
 /// Size of the sprite image for each block.
 let blockImageSize = 36 //41
 
-
-
 /**
  Creates blocks of specified colors & assembles based on given structure
  */
@@ -38,8 +36,6 @@ class Shape : SKNode {
             layout.map(\.y).max() ?? 0
         )
     }
-    
-
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -125,7 +125,6 @@ class Piece : SKNode {
     var size: (x: Int, y: Int) { //size isn't updated when rotated
         shape.size
     }
-
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -136,7 +135,6 @@ class Piece : SKNode {
 //        size = shape.size
         super.init()
         addChild(shape)
-        
     }
     func maxX(piece: Piece, coord: CGPoint) -> CGFloat {
         return coord.x + CGFloat((piece.size.x+1) * blockSize)
