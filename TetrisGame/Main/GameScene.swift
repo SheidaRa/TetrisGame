@@ -14,12 +14,9 @@ class GameScene: SKScene {
     let template: Template
     
     let gridXOffset: Int
-    
     let gridYOffset: Int
-    
+
     var piecesList: [Piece]
-    
-    var offTemplate: Int = 0
     
     let coordCon: CoordConversion
     
@@ -69,7 +66,27 @@ class GameScene: SKScene {
     // override function to check if the tetris piece moves or not
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tap)
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTap)
+    }
+    
+    // creates a function to handle 2x tap gesture to flip/mirror the piece
+    @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
+        if doubleTap.state == .ended{
+            if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
+                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
+                touchedPiece.shape.flip()
+                
+                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
+                print("won: ", hasWon())
+                
+                handleOverlap(piece: touchedPiece)
+            }
+        }
     }
     
     // creates a function to handle tap gesture to rotate the piece
@@ -78,13 +95,11 @@ class GameScene: SKScene {
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
-                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
-//                print("won: ", hasWon())
-                if overlap(piece: touchedPiece) == true{
-                    touchedPiece.position = CGPoint(x: touchedPiece.position.x + 10, y: touchedPiece.position.y + 10)
-                }
                 
-                print("overlap exists ", overlap(piece: touchedPiece))
+                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
+                print("won: ", hasWon())
+                
+               handleOverlap(piece: touchedPiece)
             }
         }
     }
@@ -128,13 +143,10 @@ class GameScene: SKScene {
             let prevTouchPos = touch.previousLocation(in: self)
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
-                // It always snaps no matter what  (we should need a condition it to be a template piece)
-                print("won: ", hasWon())
-                print("overlap exists ", overlap(piece: touchedBlock))
-                if overlap(piece: touchedBlock) == true{
-                    touchedBlock.position = CGPoint(x: touchedBlock.position.x + 10, y: touchedBlock.position.y + 10)
-                } 
-                print(touchedBlock.position)
+
+//                print("won: ", hasWon())
+                print("overlap exists ", overlap())
+                handleOverlap(piece: touchedBlock)
             }
         }
     }
@@ -195,7 +207,6 @@ class GameScene: SKScene {
     
     //dictionary of the template's coordinates, values are num blocks in same pos, if any value is 0, know puzzle not complete
     func fillDictionary() -> [GridPoint: Int]{
-        //offTemplate = 0
         let piecesBlockPos = pieceCoords(pieces: piecesList)
         var templateMap = createTemplateDic()
         
@@ -223,15 +234,20 @@ class GameScene: SKScene {
         return won
     }
     
-    func overlap(piece: Piece) -> Bool { //instead make so takes piece as input and checks to see if already a piece in that pos?
+    func overlap() -> Bool { //instead make so takes piece as input and checks to see if already a piece in that pos?
         var overlapping: Bool = false
         let pieceDic = createPieceDic()
         for coord in pieceDic.keys{
             if pieceDic[coord] != 1{
                 overlapping = true
-                //piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
             }
         }
         return overlapping
+    }
+    
+    func handleOverlap(piece: Piece){
+        if overlap() == true{
+            piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
+        }
     }
 }
