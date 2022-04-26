@@ -9,6 +9,8 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    let background = SKSpriteNode(imageNamed: "TetrisBackground")
+    
     let template: Template
     
     let gridXOffset: Int
@@ -28,7 +30,8 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        template = Template(structure: t4)
+        template = Template(structure: t3)
+        //gridWidth = Int((Double(size.width)/40).rounded())
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
@@ -38,14 +41,22 @@ class GameScene: SKScene {
         coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
         
         piecesList = []
+        
+        var backGroundAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 1), SKAction.fadeOut(withDuration: 0.5)])
 
         super.init(size: size)
         
+        self.backgroundColor = SKColor.black
+        self.background.name = "background"
+        self.background.anchorPoint = CGPoint.init(x: 0, y: 0)
+        self.addChild(background)
+        background.run(SKAction.repeatForever(backGroundAnimate))
+        
         template.position = CGPoint(x: centeredX, y: centeredY)
-        template.zPosition = 0
+        template.zPosition = 1
         self.addChild(template)
         
-print("Template: ", template.position)
+        print("Template: ", template.position)
 
         let piece1 = Piece(structure: stairShape, blockColor: "B1")
         piece1.position = CGPoint(x: 80, y: 150)
@@ -192,7 +203,7 @@ print("Template: ", template.position)
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
                 // It always snaps no matter what  (we should need a condition it to be a template piece)
-//                print("won: ", hasWon())
+                print("won: ", hasWon())
                 print("overlap exists ", overlap(piece: touchedBlock))
                 if overlap(piece: touchedBlock) == true{
                     touchedBlock.position = CGPoint(x: touchedBlock.position.x + 10, y: touchedBlock.position.y + 10)
