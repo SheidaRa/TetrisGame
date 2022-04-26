@@ -43,10 +43,10 @@ class GameLevel {
         let template4 = Template(structure: t4)
         
         // Game levels
-        levelOne = Level(pieces: [[piece1, piece2, piece3, piece4, piece6]], template: template3)
-        levelTwo = Level(pieces: [[piece4, piece5, piece6, piece7, piece8]], template: template1)
-        levelThree = Level(pieces: [[piece9, piece11, piece3, piece4, piece15]], template: template2)
-        levelFour = Level(pieces: [[piece10, piece12, piece13, piece14, piece6]], template: template4)
+        levelOne = Level(pieces: [piece1, piece2, piece3, piece4, piece5], template: template3)
+        levelTwo = Level(pieces: [piece4, piece5, piece6, piece7, piece8], template: template1)
+        levelThree = Level(pieces: [piece9, piece11, piece3, piece4, piece15], template: template2)
+        levelFour = Level(pieces: [piece10, piece12, piece13, piece14, piece6], template: template4)
     }
     
     func loadGameSet ()  -> Level {

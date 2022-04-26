@@ -30,7 +30,8 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        template = Template(structure: t3)
+        let game = GameLevel(size: size, level: 1)
+        template = game.loadGameSet().template
         //gridWidth = Int((Double(size.width)/40).rounded())
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
@@ -41,103 +42,28 @@ class GameScene: SKScene {
         coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
         
         piecesList = []
-        
-        var backGroundAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 1), SKAction.fadeOut(withDuration: 0.5)])
 
         super.init(size: size)
         
         self.backgroundColor = SKColor.black
-        self.background.name = "background"
-        self.background.anchorPoint = CGPoint.init(x: 0, y: 0)
-        self.addChild(background)
-        background.run(SKAction.repeatForever(backGroundAnimate))
-        
         template.position = CGPoint(x: centeredX, y: centeredY)
         template.zPosition = 1
         self.addChild(template)
         
-        print("Template: ", template.position)
-
-        let piece1 = Piece(structure: stairShape, blockColor: "B1")
-        piece1.position = CGPoint(x: 80, y: 150)
-        piece1.zPosition = 1
-        addChild(piece1)
-        piecesList.append(piece1)
-
-        let piece2 = Piece(structure: tShape, blockColor: "B2")
-        piece2.position = CGPoint(x: 0, y: 150)
-        piece2.zPosition = 1
-        self.addChild(piece2)
-        piecesList.append(piece2)
-
-        let piece3 = Piece(structure: squareShape, blockColor: "B3")
-        piece3.position = CGPoint(x: 50, y: 50)
-        piece3.zPosition = 1
-        self.addChild(piece3)
-        piecesList.append(piece3)
-
-        let piece4 = Piece(structure: pShape, blockColor: "B4")
-//        piece4.position = CGPoint(x: 25, y: 300)
-        piece4.position = CGPoint(x: 220, y: 150)
-        piece4.zPosition = 1
-        self.addChild(piece4)
-        piecesList.append(piece4)
-
-        let piece5 = Piece(structure: uShape, blockColor: "B5")
-        piece5.position = CGPoint(x: 180, y: 20)
-        piece5.zPosition = 1
-        self.addChild(piece5)
-        piecesList.append(piece5)
-        
-        let piece6 = Piece(structure: wShape, blockColor: "B6")
-        piece6.position = CGPoint(x: 60, y: 30)
-        piece6.zPosition = 1
-        self.addChild(piece6)
-//
-//        let piece7 = Piece(structure: bomrangLShape, blockColor: "B7")
-//        piece7.position = CGPoint(x: 60, y: 30)
-//        piece7.zPosition = 1
-//        self.addChild(piece7)
-//
-//        let piece8 = Piece(structure: longLShape, blockColor: "B8")
-//        piece8.position = CGPoint(x: 60, y: 30)
-//        piece8.zPosition = 1
-//        self.addChild(piece8)
-//
-//        let piece9 = Piece(structure: idkShape, blockColor: "B9")
-//        piece9.position = CGPoint(x: 60, y: 30)
-//        piece9.zPosition = 1
-//        self.addChild(piece9)
-//
-//        let piece10 = Piece(structure: trailShape, blockColor: "B10")
-//        piece10.position = CGPoint(x: 60, y: 30)
-//        piece10.zPosition = 1
-//        self.addChild(piece10)
-//
-//        let piece11 = Piece(structure: plusShape, blockColor: "B11")
-//        piece11.position = CGPoint(x: 60, y: 30)
-//        piece11.zPosition = 1
-//        self.addChild(piece11)
-//
-//        let piece12 = Piece(structure: longzShape, blockColor: "B12")
-//        piece12.position = CGPoint(x: 60, y: 30)
-//        piece12.zPosition = 1
-//        self.addChild(piece12)
-//
-//        let piece13 = Piece(structure: longStairShape, blockColor: "B13")
-//        piece13.position = CGPoint(x: 60, y: 30)
-//        piece13.zPosition = 1
-//        self.addChild(piece13)
-//
-//        let piece14 = Piece(structure: idk2Shape, blockColor: "B14")
-//        piece14.position = CGPoint(x: 60, y: 30)
-//        piece14.zPosition = 1
-//        self.addChild(piece14)
-//
-//        let piece15 = Piece(structure: trailJumpShape, blockColor: "B15")
-//        piece15.position = CGPoint(x: 60, y: 30)
-//        piece15.zPosition = 1
-//        self.addChild(piece15)
+        piecesList = game.loadGameSet().pieces
+        var count = 0
+        var verticalCount = 0
+        for piece in game.loadGameSet().pieces {
+            piece.position = CGPoint(x: 120 * count, y: 150 - 120 * verticalCount)
+            piece.zPosition = 1
+            self.addChild(piece)
+            
+            count += 1
+            if count % 3 == 0 {
+                verticalCount += 1
+                count = 0
+            }
+        }
     }
     
     // override function to check if the tetris piece moves or not

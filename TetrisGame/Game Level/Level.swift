@@ -8,6 +8,6 @@
 import Foundation
 
 struct Level: Hashable {
-    var pieces: [[Piece]]
+    var pieces: [Piece]
     var template: Template
 }
