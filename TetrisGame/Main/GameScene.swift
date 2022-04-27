@@ -25,6 +25,23 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
+//Transitions
+    
+//    override func didMove(to view:SKView){
+//        print("this is game scne")
+//    }
+//
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        for touch in touches {
+//            if touch == touches.first{
+//                print (" going to menu")
+//            }
+//        }
+//    }
+    
+    
+
+    
     // constructor for GameScene
     override init(size: CGSize) {
         let game = GameLevel(size: size, level: 1)
