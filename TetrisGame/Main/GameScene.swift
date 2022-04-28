@@ -40,13 +40,11 @@ class GameScene: SKScene {
 //    }
     
     
-
-    
     // constructor for GameScene
     override init(size: CGSize) {
         let game = GameLevel(size: size, level: 1)
         template = game.loadGameSet().template
-        //gridWidth = Int((Double(size.width)/40).rounded())
+    
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
@@ -97,7 +95,8 @@ class GameScene: SKScene {
     
     // creates a function to handle 2x tap gesture to flip/mirror the piece
     @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
-        if doubleTap.state == .ended{
+print("handleDoubleTap")
+        if doubleTap.state == .ended {
             if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.flip()
@@ -113,7 +112,9 @@ class GameScene: SKScene {
     // creates a function to handle tap gesture to rotate the piece
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
+//print("    looking for piece")
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
+//print("    found piece")
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
                 
@@ -128,11 +129,13 @@ class GameScene: SKScene {
     // function to check if the piece tapped or moved is a tetris piece or not
     func piece(at pos: CGPoint) -> Piece? {
         let node = atPoint(pos)
+//print("    ---> found node", node)
         return node.parent?.parent as? Piece
     }
-
+    
     // function to handle tetris piece movement
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
         for touch in touches {
             let curTouchPos = touch.location(in: self)
             let prevTouchPos = touch.previousLocation(in: self)
@@ -160,18 +163,27 @@ class GameScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        touchesFinished(touches: touches)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        touchesFinished(touches: touches)
+    }
+    
+    func touchesFinished(touches: Set<UITouch>){
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
-
-                print("won: ", hasWon())
-                print("overlap exists ", overlap())
+//                print("won: ", hasWon())
+//                print("overlap exists ", overlap())
                 handleOverlap(piece: touchedBlock)
             }
         }
+        
     }
-    
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
     func pieceCoords(pieces: [Piece]) -> [GridPoint] {
