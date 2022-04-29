@@ -28,7 +28,7 @@ class GameScene: SKScene {
 //Transitions
     
 //    override func didMove(to view:SKView){
-//        print("this is game scne")
+//        print("this is game scene")
 //    }
 //
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,6 +59,7 @@ class GameScene: SKScene {
         
         self.backgroundColor = SKColor.black
         self.background.name = "background"
+        self.background.size = CGSize(width: 775, height: 1007)
         self.background.anchorPoint = CGPoint.zero
         self.addChild(background)
         
@@ -178,11 +179,22 @@ print("handleDoubleTap")
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
                 print("won: ", hasWon())
+                if hasWon() {
+                    winAnimation()
+                }
 //                print("overlap exists ", overlap())
                 handleOverlap(piece: touchedBlock)
             }
         }
         
+    }
+    
+    func winAnimation () {
+        let winLabel = SKLabelNode(text: "You have won!!!")
+        winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
+        winLabel.color = SKColor.yellow
+        self.removeAllChildren()
+        self.addChild(winLabel)
     }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen

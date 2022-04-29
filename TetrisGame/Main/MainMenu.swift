@@ -16,9 +16,9 @@ class MainMenu: SKScene {
 
     override func didMove(to view:SKView){
         
-//        let background = SKSpriteNode(imageNamed: "TetrisBackground")
-//        self.addChild(background)
-//
+        let background = SKSpriteNode(imageNamed: "TetrisBackground")
+        self.addChild(background)
+
         
         let title = SKSpriteNode(
             texture: SKTexture(
@@ -51,14 +51,15 @@ class MainMenu: SKScene {
     }
         
  
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for touch in touches {
-//            if touch == touches.first{
-//                print("going to Gameplay")
-//
-//            }
-//        }
-    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            if touch == touches.first{
+                print("going to Gameplay")
 
+            }
+        }
+    }
+    
+}
 
  
