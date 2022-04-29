@@ -70,7 +70,7 @@ class GameScene: SKScene {
         var count = 0
         var verticalCount = 0
         for piece in game.loadGameSet().pieces {
-            piece.position = CGPoint(x: 120 * count, y: 150 - 120 * verticalCount)
+            piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
             piece.zPosition = 1
             self.addChild(piece)
             
@@ -177,7 +177,7 @@ print("handleDoubleTap")
             let prevTouchPos = touch.previousLocation(in: self)
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
-//                print("won: ", hasWon())
+                print("won: ", hasWon())
 //                print("overlap exists ", overlap())
                 handleOverlap(piece: touchedBlock)
             }
