@@ -192,10 +192,11 @@ print("handleDoubleTap")
     func winAnimation () {
         let winLabel = SKLabelNode(text: "You have won!!!")
         winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
+        winLabel.zPosition = 1
         winLabel.color = SKColor.yellow
         self.removeAllChildren()
         self.addChild(winLabel)
-        SKAction.wait(forDuration: 3)
+        winLabel.run(SKAction.fadeIn(withDuration: 2))
         addChild(background)
     }
   
