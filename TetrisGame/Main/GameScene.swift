@@ -195,6 +195,8 @@ print("handleDoubleTap")
         winLabel.color = SKColor.yellow
         self.removeAllChildren()
         self.addChild(winLabel)
+        SKAction.wait(forDuration: 3)
+        addChild(background)
     }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
