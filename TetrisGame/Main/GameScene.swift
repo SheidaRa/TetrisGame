@@ -193,10 +193,12 @@ print("handleDoubleTap")
         let winLabel = SKLabelNode(text: "You have won!!!")
         winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
         winLabel.zPosition = 1
-        winLabel.color = SKColor.yellow
+        winLabel.fontSize = 50
+        winLabel.fontName = "ArialRoundedMTBold"
+        winLabel.fontColor = SKColor.yellow
         self.removeAllChildren()
+        winLabel.run(SKAction.fadeIn(withDuration: 4))
         self.addChild(winLabel)
-        winLabel.run(SKAction.fadeIn(withDuration: 2))
         addChild(background)
     }
   
