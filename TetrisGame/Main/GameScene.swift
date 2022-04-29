@@ -191,14 +191,15 @@ print("handleDoubleTap")
     
     func winAnimation () {
         let winLabel = SKLabelNode(text: "You have won!!!")
+        var winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
         winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
         winLabel.zPosition = 1
         winLabel.fontSize = 50
         winLabel.fontName = "ArialRoundedMTBold"
         winLabel.fontColor = SKColor.yellow
         self.removeAllChildren()
-        winLabel.run(SKAction.fadeIn(withDuration: 4))
         self.addChild(winLabel)
+        winLabel.run(SKAction.repeatForever(winAnimate))
         addChild(background)
     }
   
