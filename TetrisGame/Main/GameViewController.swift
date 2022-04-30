@@ -16,7 +16,7 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "HomeScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFit
                 scene.backgroundColor = SKColor.black
@@ -53,7 +53,7 @@ class GameViewController: UIViewController {
       /* Sprite Kit applies additional optimizations to improve rendering performance */
       skView.ignoresSiblingOrder = true
         
-      let scene = GameScene(size: CGSize(width: 375, height: 667))
+      let scene = HomeScene(size: CGSize(width: 375, height: 667))
       /* Set the scale mode to scale to fit the window */
       scene.scaleMode = .aspectFit
       skView.presentScene(scene)

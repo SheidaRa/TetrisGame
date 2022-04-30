@@ -96,7 +96,7 @@ class GameScene: SKScene {
     
     // creates a function to handle 2x tap gesture to flip/mirror the piece
     @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
-print("handleDoubleTap")
+        print("handleDoubleTap")
         if doubleTap.state == .ended {
             if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
