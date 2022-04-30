@@ -9,6 +9,7 @@ import SpriteKit
 
 class GameLevel {
     
+    let introLevel: Level
     let levelOne: Level
     let levelTwo: Level
     let levelThree: Level
@@ -18,6 +19,7 @@ class GameLevel {
     let levelSeven: Level
     let levelEight: Level
     let levelNine: Level
+    let levelZero: Level
     
     var gameLevel: Int
     
@@ -44,6 +46,8 @@ class GameLevel {
         let piece15 = Piece(structure: trailJumpShape, blockColor: "B1")
         
         // List of templates
+        let intro = Template(structure: tstart)
+        let template0 = Template(structure: t0)
         let template1 = Template(structure: t1)
         let template2 = Template(structure: t2)
         let template3 = Template(structure: t3)
@@ -55,6 +59,8 @@ class GameLevel {
         let template9 = Template(structure: t9)
         
         // Game levels
+        introLevel = Level(pieces: [piece5, piece11, piece4], template: intro)
+        levelZero = Level(pieces: [piece3, piece12], template: template0)
         levelOne = Level(pieces: [piece1, piece2, piece3, piece4, piece5], template: template3)
         levelTwo = Level(pieces: [piece7, piece12, piece4, piece14, piece9, piece13], template: template2)
         levelThree = Level(pieces: [piece15, piece11, piece8, piece5, piece10, piece14, piece13], template: template1)
@@ -94,8 +100,11 @@ class GameLevel {
         else if gameLevel == 9{
             return levelNine
         }
+        else if gameLevel == 0{
+            return levelZero
+        }
         else {
-            return levelSix
+            return introLevel
         }
     }
     
