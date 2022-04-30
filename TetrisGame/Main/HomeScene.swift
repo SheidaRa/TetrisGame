@@ -35,13 +35,15 @@ class HomeScene: SKScene {
         logo.setScale(0.3)
         addChild(logo)
         
-        let buttonImage = SKSpriteNode(
-            texture: SKTexture(
-                image: UIImage(named: "StartB")!))
-        buttonImage.position = CGPoint(x: size.width * 0.5, y: size.height * 0.15)
-        buttonImage.setScale(1)
-        buttonImage.zPosition = 1
-        addChild(buttonImage)
+        let homeTextLabel = SKLabelNode(text: "Click anywhere to start!")
+        homeTextLabel.fontSize = 20
+        homeTextLabel.fontName = "ArialRoundedMTBold"
+        homeTextLabel.fontColor = SKColor.white
+        homeTextLabel.zPosition = 1
+        homeTextLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.15)
+        let textAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
+        addChild(homeTextLabel)
+        homeTextLabel.run(SKAction.repeatForever(textAnimate))
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
@@ -50,7 +52,7 @@ class HomeScene: SKScene {
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             let touchedNode = atPoint(convertPoint(fromView: tap.location(in: self.view)))
-            if touchedNode is SKSpriteNode {
+            if touchedNode is SKNode {
                 let game = GameScene(size: size)
                 game.scaleMode = .aspectFit
                 self.view?.presentScene(game, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))

@@ -191,17 +191,42 @@ class GameScene: SKScene {
     }
     
     func winAnimation () {
+        let winBox = SKSpriteNode (imageNamed: "B12")
+        winBox.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
+        winBox.size = CGSize(width: 240, height: 240)
+        winBox.zPosition = 4
         let winLabel = SKLabelNode(text: "You have won!!!")
         let winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
-        winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
-        winLabel.zPosition = 1
-        winLabel.fontSize = 50
+        winLabel.fontSize = 20
         winLabel.fontName = "ArialRoundedMTBold"
-        winLabel.fontColor = SKColor.yellow
-        self.removeAllChildren()
-        self.addChild(winLabel)
-        winLabel.run(SKAction.repeatForever(winAnimate))
+        winLabel.fontColor = SKColor.white
+        winLabel.zPosition = 5
+        removeAllChildren()
         addChild(background)
+        winBox.addChild(winLabel)
+        addChild(winBox)
+        winLabel.run(SKAction.repeatForever(winAnimate))
+        winBox.run(SKAction.fadeIn(withDuration: 2))
+        
+//        let winAction = UIAlertAction(title: "Next Level?", style: .default) { (result) in
+//            print("won action")
+//        }
+//        winAlert(on: self, title: "You won!!", message: "Next level?", preferredStyle: .alert, actions: [winAction], animated: true, delay: 0.1) {
+//            print("showed alert!")
+//        }
+    }
+    
+    func winAlert (on scene: SKScene, title: String, message: String, preferredStyle: UIAlertController.Style, actions:[UIAlertAction], animated: Bool, delay: Double, completion: (() -> Swift.Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        
+        for action in actions {
+            alert.addAction(action)
+        }
+        
+        let wait = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: wait) {
+            scene.view?.window?.rootViewController?.present(alert, animated: animated, completion: completion)
+        }
     }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
