@@ -7,6 +7,9 @@
 
 import SpriteKit
 
+/**
+ Converts CGPoints to gridPoints along the game's grid system
+ */
 class CoordConversion {
     
     let xOffset: Int
@@ -17,12 +20,17 @@ class CoordConversion {
         self.yOffset = yOffset
     }
     
+    /**
+     Takes CGpoint and returns equivalent CGPoint on the game's grid system
+     */
     func snapToGrid(coord: CGPoint) -> CGPoint{
         let point = sceneToGrid(coord: coord)
         return gridToScene(gridPoint: point)
     }
     
-    //converts from CGPoint to grid point
+    /**
+     Converts from CGPoint to gridPoint on game's grid system
+     */
     func sceneToGrid(coord: CGPoint) -> (Int, Int){
         let x = (Double(coord.x) - Double(xOffset)) / Double(blockSize)
         let y = (Double(coord.y) - Double(yOffset)) / Double(blockSize)
@@ -30,7 +38,9 @@ class CoordConversion {
         return (Int(x.rounded()), Int(y.rounded()))
     }
     
-    //converts from (Int, Int) to CGPoint
+    /**
+     Converts from a gridPoint to a CGPoint
+     */
     func gridToScene(gridPoint:(x:Int, y:Int)) -> CGPoint{
         return CGPoint(
             x: (gridPoint.x * blockSize) + xOffset,

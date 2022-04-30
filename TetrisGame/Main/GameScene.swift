@@ -42,7 +42,7 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        let game = GameLevel(size: size, level: 1)
+        let game = GameLevel(size: size, level: 2)
         template = game.loadGameSet().template
     
         

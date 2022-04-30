@@ -44,8 +44,8 @@ class GameLevel {
         
         // Game levels
         levelOne = Level(pieces: [piece1, piece2, piece3, piece4, piece5], template: template3)
-        levelTwo = Level(pieces: [piece4, piece5, piece6, piece7, piece8], template: template1)
-        levelThree = Level(pieces: [piece9, piece11, piece3, piece4, piece15], template: template2)
+        levelTwo = Level(pieces: [piece8, piece12, piece4, piece10, piece8], template: template2)
+        levelThree = Level(pieces: [piece9, piece11, piece3, piece4, piece15], template: template1)
         levelFour = Level(pieces: [piece10, piece12, piece13, piece14, piece6], template: template4)
     }
     
