@@ -74,6 +74,7 @@ class GameScene: SKScene {
             piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
             piece.zPosition = 1
             self.addChild(piece)
+            piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
             
             count += 1
             if count % 3 == 0 {
@@ -191,7 +192,7 @@ class GameScene: SKScene {
     
     func winAnimation () {
         let winLabel = SKLabelNode(text: "You have won!!!")
-        var winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
+        let winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
         winLabel.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
         winLabel.zPosition = 1
         winLabel.fontSize = 50
