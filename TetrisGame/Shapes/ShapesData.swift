@@ -64,9 +64,9 @@ let stairShape = [ //not sure what shape this is?
 ].map(GridPoint.init)
 
 let bomrangLShape = [
-    (0,0),
-    (0,1), (1,2),
-    (0,2),(2,2)
+    (0,2),
+    (0,1),
+    (0,0),(1,0), (2,0)
 ].map(GridPoint.init)
 
 let longLShape = [
@@ -74,7 +74,6 @@ let longLShape = [
     (0,1),(0,3),
     (0,2),(1,0)
 ].map(GridPoint.init)
-
 
 let idkShape = [
     (1,0),

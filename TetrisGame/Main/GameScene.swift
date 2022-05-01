@@ -42,7 +42,7 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        let game = lvl8
+        let game = lvl2
         template = game.template
     
         
@@ -90,26 +90,26 @@ class GameScene: SKScene {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
         
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        doubleTap.numberOfTapsRequired = 2
-        view.addGestureRecognizer(doubleTap)
+//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+//        doubleTap.numberOfTapsRequired = 2
+//        view.addGestureRecognizer(doubleTap)
     }
     
     // creates a function to handle 2x tap gesture to flip/mirror the piece
-    @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
-        print("handleDoubleTap")
-        if doubleTap.state == .ended {
-            if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
-                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
-                touchedPiece.shape.flip()
-                
-                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
-                print("won: ", hasWon())
-                
-                handleOverlap(piece: touchedPiece)
-            }
-        }
-    }
+//    @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
+//        print("handleDoubleTap")
+//        if doubleTap.state == .ended {
+//            if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
+//                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
+//                touchedPiece.shape.flip()
+//
+//                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
+//                print("won: ", hasWon())
+//
+//                handleOverlap(piece: touchedPiece)
+//            }
+//        }
+//    }
     
     // creates a function to handle tap gesture to rotate the piece
     @objc func handleTap(_ tap: UITapGestureRecognizer) {

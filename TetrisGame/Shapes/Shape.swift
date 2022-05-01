@@ -65,10 +65,9 @@ class Shape : SKNode {
         self.layout = newLayout.map{ point in GridPoint(x: point.x - minX, y: point.y - minY) }
     }
     
-    func flip(){
+    func flip() -> [GridPoint]{
         let newLayout = layout.map { point in GridPoint(x: -point.x, y: point.y) }
         let minX = newLayout.map(\.x).min() ?? 0
-        self.layout = newLayout.map{ point in GridPoint(x: point.x - minX, y: point.y ) }
-        
+        return newLayout.map{ point in GridPoint(x: point.x - minX, y: point.y ) }
     }
 }
