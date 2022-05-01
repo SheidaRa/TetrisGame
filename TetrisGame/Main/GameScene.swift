@@ -42,8 +42,8 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        let game = GameLevel(size: size, level: 12)
-        template = game.loadGameSet().template
+        let game = lvl8
+        template = game.template
     
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
@@ -67,10 +67,10 @@ class GameScene: SKScene {
         template.zPosition = 1
         self.addChild(template)
         
-        piecesList = game.loadGameSet().pieces
+        piecesList = game.pieces
         var count = 0
         var verticalCount = 0
-        for piece in game.loadGameSet().pieces {
+        for piece in game.pieces {
             piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
             piece.zPosition = 1
             self.addChild(piece)

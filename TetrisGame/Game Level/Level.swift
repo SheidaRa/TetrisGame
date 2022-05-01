@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct Level: Hashable {
-    var pieces: [Piece]
-    var template: Template
+class Level {
+    
+    let pieces: [Piece]
+    let template: Template
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    init(pieces: [Piece], template: [GridPoint]){
+        self.template = Template(structure: template)
+        self.pieces = pieces
+    }
+    
 }
