@@ -185,23 +185,18 @@ class GameScene: SKScene {
     }
     
     func winAnimation () {
-        let winLabel = SKLabelNode(text: "You have won!!!")
-        let winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
-        winLabel.fontSize = 20
-        winLabel.fontName = "ArialRoundedMTBold"
-        winLabel.fontColor = SKColor.white
-        winLabel.zPosition = 4
-        winLabel.position = CGPoint(x:Int(size.width/2), y: Int(size.height/2) + 100)
-        removeAllChildren()
+        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
+        winParticleBottom?.zPosition = 6
+        winParticleBottom?.position = CGPoint(x: 40, y: 40)
+        addChild(winParticleBottom!)
+        winParticleBottom?.run(SKAction.fadeIn(withDuration: 1))
         
-        let winParticle = SKEmitterNode(fileNamed: "Spark.sks")
-        winParticle?.zPosition = 4
-        winParticle?.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
-        addChild(winParticle!)
-        addChild(background)
-        addChild(winLabel)
-        winLabel.run(SKAction.repeatForever(winAnimate))
-        
+        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")
+        winParticleTop?.zPosition = 6
+        winParticleTop?.position = CGPoint(x: 340, y: 640)
+        addChild(winParticleTop!)
+        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
+
     }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
