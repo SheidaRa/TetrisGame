@@ -6,10 +6,13 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene {
     
     let background = SKSpriteNode(imageNamed: "TetrisBackground")
+    
+    let winGif : SKAction
     
     let template: Template
     
@@ -42,7 +45,7 @@ class GameScene: SKScene {
     
     // constructor for GameScene
     override init(size: CGSize) {
-        let game = lvl2
+        let game = lvlIntro
         template = game.template
     
         
@@ -54,6 +57,16 @@ class GameScene: SKScene {
         coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
         
         piecesList = []
+        
+        var textures: [SKTexture] = []
+        
+        for i in 1...10 {
+            textures.append(SKTexture(imageNamed: "win\(i)"))
+        }
+        textures.append(textures[2])
+        textures.append(textures[1])
+        
+        winGif = SKAction.animate(withNormalTextures: textures, timePerFrame: 0.01)
 
         super.init(size: size)
         
@@ -82,6 +95,7 @@ class GameScene: SKScene {
                 count = 0
             }
         }
+        
     }
     
     // override function to check if the tetris piece moves or not
@@ -89,34 +103,14 @@ class GameScene: SKScene {
         super.didMove(to: view)
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
-        
-//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-//        doubleTap.numberOfTapsRequired = 2
-//        view.addGestureRecognizer(doubleTap)
     }
-    
-    // creates a function to handle 2x tap gesture to flip/mirror the piece
-//    @objc func handleDoubleTap(_ doubleTap: UITapGestureRecognizer){
-//        print("handleDoubleTap")
-//        if doubleTap.state == .ended {
-//            if let touchedPiece = piece(at: convertPoint(fromView: doubleTap.location(in: self.view))) {
-//                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
-//                touchedPiece.shape.flip()
-//
-//                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
-//                print("won: ", hasWon())
-//
-//                handleOverlap(piece: touchedPiece)
-//            }
-//        }
-//    }
     
     // creates a function to handle tap gesture to rotate the piece
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
-//print("    looking for piece")
+            //print("    looking for piece")
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
-//print("    found piece")
+                //print("    found piece")
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
                 
@@ -191,42 +185,23 @@ class GameScene: SKScene {
     }
     
     func winAnimation () {
-        let winBox = SKSpriteNode (imageNamed: "B12")
-        winBox.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
-        winBox.size = CGSize(width: 240, height: 240)
-        winBox.zPosition = 4
         let winLabel = SKLabelNode(text: "You have won!!!")
         let winAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
         winLabel.fontSize = 20
         winLabel.fontName = "ArialRoundedMTBold"
         winLabel.fontColor = SKColor.white
-        winLabel.zPosition = 5
+        winLabel.zPosition = 4
+        winLabel.position = CGPoint(x:Int(size.width/2), y: Int(size.height/2) + 100)
         removeAllChildren()
+        
+        let winParticle = SKEmitterNode(fileNamed: "Spark.sks")
+        winParticle?.zPosition = 4
+        winParticle?.position = CGPoint(x: Int(size.width/2), y: Int(size.height/2))
+        addChild(winParticle!)
         addChild(background)
-        winBox.addChild(winLabel)
-        addChild(winBox)
+        addChild(winLabel)
         winLabel.run(SKAction.repeatForever(winAnimate))
-        winBox.run(SKAction.fadeIn(withDuration: 2))
         
-//        let winAction = UIAlertAction(title: "Next Level?", style: .default) { (result) in
-//            print("won action")
-//        }
-//        winAlert(on: self, title: "You won!!", message: "Next level?", preferredStyle: .alert, actions: [winAction], animated: true, delay: 0.1) {
-//            print("showed alert!")
-//        }
-    }
-    
-    func winAlert (on scene: SKScene, title: String, message: String, preferredStyle: UIAlertController.Style, actions:[UIAlertAction], animated: Bool, delay: Double, completion: (() -> Swift.Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
-        
-        for action in actions {
-            alert.addAction(action)
-        }
-        
-        let wait = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: wait) {
-            scene.view?.window?.rootViewController?.present(alert, animated: animated, completion: completion)
-        }
     }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
