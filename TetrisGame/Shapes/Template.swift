@@ -9,7 +9,9 @@ import SpriteKit
 
 class Template : SKNode {
     
-    let size: (x: Int, y: Int)
+    var size: (x: Int, y: Int) {
+        shape.size
+    }
     
     let shape: Shape
     
@@ -18,15 +20,9 @@ class Template : SKNode {
     }
     
     init(structure: [GridPoint]) {
-        size = (
-            structure.map(\.x).max() ?? 0,
-            structure.map(\.y).max() ?? 0
-        )
         
         shape = Shape(structure: structure, blockImage: "templateBlock")
-        
         super.init()
-
         shape.replaceBlocks(in: self)
     }
     

@@ -40,14 +40,14 @@ let lvl3: Level  = Level(shapes: [shape7, shape12, shape4, shape14, shape9, shap
 let lvl4: Level = Level(shapes: [shape5, shape14, shape13, shape15, shape8, shape10], template: t7)
 
 //7 shapes
-let lvl5: Level = Level(shapes: [shape8.flipped(), shape14, shape5, shape12.flipped(), shape7.flipped(), shape2, shape4], template: t4)
-let lvl6: Level = Level(shapes: [shape13, shape1.flipped(), shape4, shape7, shape9, shape15.flipped(), shape7b], template: t5)
-let lvl7: Level = Level(shapes: [shape4, shape3, shape11, shape12.flipped(), shape5, shape8.flipped(), shape4b], template: t8)
-let lvl8: Level = Level(shapes: [shape15, shape11, shape8, shape5, shape10, shape14, shape13], template: t1)
+let lvl5: Level = Level(shapes: [shape14, shape12.flipped(), shape7.flipped(), shape2, shape4, shape8.flipped(), shape5], template: t4)
+let lvl6: Level = Level(shapes: [shape13, shape1.flipped(), shape4, shape7, shape15.flipped(), shape7b, shape9], template: t5)
+let lvl7: Level = Level(shapes: [shape4, shape4b, shape11, shape12.flipped(), shape5, shape8.flipped(), shape3], template: t8)
+let lvl8: Level = Level(shapes: [shape15, shape8, shape11, shape5, shape10, shape13, shape14], template: t1)
 
 //8 shapes
 let lvl9: Level = Level(shapes: [shape14, shape5, shape9, shape12.flipped(), shape10, shape15.flipped(), shape8,shape13.flipped()], template: t6)
 
+let allLevels: [Level] = [lvlIntro, lvl0]
 
-
-let allLevels: [Level] = [lvlIntro, lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9]
+//let allLevels: [Level] = [lvlIntro, lvl0, lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9]
