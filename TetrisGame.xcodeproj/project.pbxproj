@@ -125,9 +125,9 @@
 				D5B4776928177691004F5C7B /* Shapes */,
 				D5B4776A281776CC004F5C7B /* Utils */,
 				D5B4776B281776DD004F5C7B /* Game Level */,
-				D593B7B627E2378500EE1B59 /* Assets.xcassets */,
 				D5B4776E2820EB0C004F5C7B /* ParticleEffects */,
 				D593B7C227E2378500EE1B59 /* TetrisGameTests */,
+				D593B7B627E2378500EE1B59 /* Assets.xcassets */,
 			);
 			path = TetrisGame;
 			sourceTree = "<group>";

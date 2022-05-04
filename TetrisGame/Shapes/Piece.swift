@@ -9,7 +9,11 @@ import SpriteKit
 
 class Piece : SKNode {
     
-    let shape: Shape
+    var shape: Shape {
+        didSet {
+            shape.replaceBlocks(in: self)
+        }
+    }
     
     var size: (x: Int, y: Int) {
         shape.size
@@ -19,11 +23,12 @@ class Piece : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(structure: [GridPoint], blockColor: String) {
-        self.shape = Shape(layout: structure, image: blockColor)
+    init(shape: Shape) {
+        self.shape = shape
         super.init()
-        addChild(shape)
+        shape.replaceBlocks(in: self)
     }
+    
     func maxX(piece: Piece, coord: CGPoint) -> CGFloat {
         return coord.x + CGFloat((piece.size.x+1) * blockSize)
     }

@@ -16,19 +16,11 @@ let blockImageSize = 36 //41
 /**
  Creates blocks of specified colors & assembles based on given structure
  */
-class Shape : SKNode {
+struct Shape {
     
     let image: String
     
-    var layout: [GridPoint] = [] {
-        didSet {
-            removeAllChildren()
-            for point in layout {
-                let block = createBlock(position: point, imageName: image)
-                addChild(block)
-            }
-        }
-    }
+    var layout: [GridPoint]
     
     var size: (x: Int, y: Int) {
         (
@@ -37,19 +29,20 @@ class Shape : SKNode {
         )
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    init(structure: [GridPoint], blockImage: String) {
+        self.image = blockImage
+        self.layout = structure
     }
     
-    init(layout: [GridPoint], image: String) {
-        self.image = image
-        super.init()
-        defer {  // didSet will not run until after init is finished
-            self.layout = layout
+    func replaceBlocks(in parent: SKNode) {
+        parent.removeAllChildren()
+        for point in layout {
+            let block = createBlock(position: point, imageName: image)
+            parent.addChild(block)
         }
     }
     
-    func createBlock(position: GridPoint, imageName: String) -> SKSpriteNode {
+    private func createBlock(position: GridPoint, imageName: String) -> SKSpriteNode {
         let singleBlock = SKSpriteNode(imageNamed: imageName)
         singleBlock.size = CGSize(width: blockImageSize, height: blockImageSize)
         singleBlock.position = CGPoint(
@@ -58,16 +51,22 @@ class Shape : SKNode {
         return singleBlock
     }
     
-    func rotate() {
+    mutating func rotate() {
         let newLayout = layout.map { point in GridPoint(x: point.y, y: -point.x) }
         let minX = newLayout.map(\.x).min() ?? 0
         let minY = newLayout.map(\.y).min() ?? 0
-        self.layout = newLayout.map{ point in GridPoint(x: point.x - minX, y: point.y - minY) }
+        self.layout = newLayout.map { point in GridPoint(x: point.x - minX, y: point.y - minY) }
     }
     
-    func flip() -> [GridPoint]{
+    mutating func flip() {
         let newLayout = layout.map { point in GridPoint(x: -point.x, y: point.y) }
         let minX = newLayout.map(\.x).min() ?? 0
-        return newLayout.map{ point in GridPoint(x: point.x - minX, y: point.y ) }
+        self.layout = newLayout.map { point in GridPoint(x: point.x - minX, y: point.y ) }
+    }
+    
+    func flipped() -> Shape {
+        var newShape = self
+        newShape.flip()
+        return newShape
     }
 }

@@ -12,7 +12,13 @@ class GameScene: SKScene {
     
     let background = SKSpriteNode(imageNamed: "TetrisBackground")
     
+    var playButton: SKSpriteNode?
+    
     let winGif : SKAction
+    
+    var isFrozen: Bool
+    
+    let game: Level
     
     let template: Template
     
@@ -44,10 +50,10 @@ class GameScene: SKScene {
     
     
     // constructor for GameScene
-    override init(size: CGSize) {
-        let game = lvlIntro
+    init(size: CGSize, gameLevel: Level) {
+        isFrozen = false
+        game = gameLevel
         template = game.template
-    
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
@@ -80,10 +86,10 @@ class GameScene: SKScene {
         template.zPosition = 1
         self.addChild(template)
         
-        piecesList = game.pieces
+        piecesList = game.shapes.map(Piece.init)
         var count = 0
         var verticalCount = 0
-        for piece in game.pieces {
+        for piece in piecesList {
             piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
             piece.zPosition = 1
             self.addChild(piece)
@@ -108,6 +114,9 @@ class GameScene: SKScene {
     
     // creates a function to handle tap gesture to rotate the piece
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
+        guard !isFrozen else {
+            return
+        }
         if tap.state == .ended {
             //print("    looking for piece")
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
@@ -116,7 +125,7 @@ class GameScene: SKScene {
                 touchedPiece.shape.rotate()
                 
                 touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
-                print("won: ", hasWon())
+                isFrozen = hasWon()
                 
                handleOverlap(piece: touchedPiece)
             }
@@ -126,8 +135,8 @@ class GameScene: SKScene {
     // function to check if the piece tapped or moved is a tetris piece or not
     func piece(at pos: CGPoint) -> Piece? {
         let node = atPoint(pos)
-//print("    ---> found node", node)
-        return node.parent?.parent as? Piece
+        //print("    ---> found node", node)
+        return node.parent as? Piece
     }
     
     // function to handle tetris piece movement
@@ -136,8 +145,20 @@ class GameScene: SKScene {
         for touch in touches {
             let curTouchPos = touch.location(in: self)
             let prevTouchPos = touch.previousLocation(in: self)
+            
+            if atPoint(curTouchPos) == playButton {
+                print("play button clicked")
+                let nextGame = GameScene(size: self.size, gameLevel: lvl1)
+                nextGame.scaleMode = .aspectFit
+                self.view?.presentScene(nextGame, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
+            }
+            
+            guard !isFrozen else {
+                return
+            }
 
             if let touchedBlock = piece(at: prevTouchPos) {
+                print("touch blocks")
                 touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedBlock.position += curTouchPos - prevTouchPos
                 
@@ -170,11 +191,14 @@ class GameScene: SKScene {
     }
     
     func touchesFinished(touches: Set<UITouch>){
+        guard !isFrozen else {
+            return
+        }
         for touch in touches {
             let prevTouchPos = touch.previousLocation(in: self)
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.position = coordCon.snapToGrid(coord: touchedBlock.position)
-                print("won: ", hasWon())
+                isFrozen = hasWon()
                 if hasWon() {
                     winAnimation()
                 }
@@ -185,20 +209,29 @@ class GameScene: SKScene {
         
     }
     
+    // Sheida working on it
     func winAnimation () {
-        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
-        winParticleBottom?.zPosition = 6
-        winParticleBottom?.position = CGPoint(x: 40, y: 40)
-        addChild(winParticleBottom!)
-        winParticleBottom?.run(SKAction.fadeIn(withDuration: 1))
-        
-        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")
-        winParticleTop?.zPosition = 6
-        winParticleTop?.position = CGPoint(x: 340, y: 640)
-        addChild(winParticleTop!)
-        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
-
+        addPlayNextLevelButton()
     }
+    
+    func addPlayNextLevelButton () {
+        print("next button added")
+        let playButton = SKSpriteNode(imageNamed: "BackB")
+        playButton.size = CGSize (width: 100, height: 100)
+        playButton.position = CGPoint(x: size.width/2, y: size.height/2)
+        playButton.zPosition = 4
+        addChild(playButton)
+        self.playButton = playButton
+    }
+    
+//    func getNextLevel (currentLevel: Level) -> Level {
+//        for i in allLevels {
+//            if i == game {
+//
+//            }
+//        }
+//        return currentLevel
+//    }
   
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
     func pieceCoords(pieces: [Piece]) -> [GridPoint] {

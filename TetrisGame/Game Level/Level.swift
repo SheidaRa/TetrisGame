@@ -7,17 +7,13 @@
 
 import Foundation
 
-class Level {
+struct Level {
     
-    let pieces: [Piece]
+    let shapes: [Shape]
     let template: Template
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    init(pieces: [Piece], template: [GridPoint]){
+    init(shapes: [Shape], template: [GridPoint]){
         self.template = Template(structure: template)
-        self.pieces = pieces
+        self.shapes = shapes
     }
-    
 }

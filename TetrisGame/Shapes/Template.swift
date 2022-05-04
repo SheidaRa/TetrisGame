@@ -23,11 +23,11 @@ class Template : SKNode {
             structure.map(\.y).max() ?? 0
         )
         
-        shape = Shape(layout: structure, image: "templateBlock")
+        shape = Shape(structure: structure, blockImage: "templateBlock")
         
         super.init()
 
-        addChild(shape)
+        shape.replaceBlocks(in: self)
     }
     
     
