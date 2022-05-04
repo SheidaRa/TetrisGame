@@ -18,7 +18,7 @@ class GameScene: SKScene {
     
     var isFrozen: Bool
     
-    let game: Level
+    let levelIndex: Int
     
     let template: Template
     
@@ -50,9 +50,13 @@ class GameScene: SKScene {
     
     
     // constructor for GameScene
-    init(size: CGSize, gameLevel: Level) {
+    init(size: CGSize, levelIndex: Int) {
         isFrozen = false
-        game = gameLevel
+        //game = gameLevel
+        self.levelIndex = levelIndex
+        let game = allLevels[levelIndex]
+//        game = lvl8 //2, 3, 4
+        print(game)
         template = game.template
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
@@ -90,7 +94,7 @@ class GameScene: SKScene {
         var count = 0
         var verticalCount = 0
         for piece in piecesList {
-            piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
+            piece.position = CGPoint(x: Int(size.width/3) * count + 20, y: Int(template.position.y) - Int(piece.size.y*blockSize)  - 8 - Int(size.height)/5 * verticalCount)
             piece.zPosition = 1
             self.addChild(piece)
             piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
@@ -148,9 +152,15 @@ class GameScene: SKScene {
             
             if atPoint(curTouchPos) == playButton {
                 print("play button clicked")
-                let nextGame = GameScene(size: self.size, gameLevel: lvl1)
-                nextGame.scaleMode = .aspectFit
-                self.view?.presentScene(nextGame, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
+                let nextScene: SKScene
+                if levelIndex+1 < allLevels.count {
+                    nextScene = GameScene(size: self.size, levelIndex: levelIndex + 1)
+                } else {
+                    nextScene = HomeScene(size: self.size)
+                }
+                
+                nextScene.scaleMode = .aspectFit
+                self.view?.presentScene(nextScene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
             }
             
             guard !isFrozen else {

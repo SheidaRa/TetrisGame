@@ -52,7 +52,7 @@ class HomeScene: SKScene {
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             let touchedNode = atPoint(convertPoint(fromView: tap.location(in: self.view)))
-            let game = GameScene(size: size, gameLevel: lvlIntro)
+            let game = GameScene(size: size, levelIndex: 0)
             game.scaleMode = .aspectFit
             self.view?.presentScene(game, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
             print("start button clicked")
