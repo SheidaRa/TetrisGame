@@ -20,12 +20,10 @@ class Template : SKNode {
     }
     
     init(structure: [GridPoint]) {
-        
         shape = Shape(structure: structure, blockImage: "templateBlock")
         super.init()
         shape.replaceBlocks(in: self)
     }
-    
-    
+
 }
    
