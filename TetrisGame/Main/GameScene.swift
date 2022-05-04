@@ -13,8 +13,8 @@ class GameScene: SKScene {
     let background = SKSpriteNode(imageNamed: "TetrisBackground")
     
     var playButton: SKSpriteNode?
-    
-    let winGif : SKAction
+
+    let winCupAnimation: SKAction
     
     var isFrozen: Bool
     
@@ -34,20 +34,6 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-//Transitions
-    
-//    override func didMove(to view:SKView){
-//        print("this is game scene")
-//    }
-//
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for touch in touches {
-//            if touch == touches.first{
-//                print (" going to menu")
-//            }
-//        }
-//    }
-    
     
     // constructor for GameScene
     init(size: CGSize, gameLevel: Level) {
@@ -65,16 +51,14 @@ class GameScene: SKScene {
         piecesList = []
         
         var textures: [SKTexture] = []
-        
-        for i in 1...10 {
+        for i in 0...9 {
             textures.append(SKTexture(imageNamed: "win\(i)"))
         }
-        textures.append(textures[2])
-        textures.append(textures[1])
-        
-        winGif = SKAction.animate(withNormalTextures: textures, timePerFrame: 0.01)
-
+        winCupAnimation = SKAction.repeatForever(
+            SKAction.animate(withNormalTextures: textures, timePerFrame: 0.1))
         super.init(size: size)
+
+
         
         self.backgroundColor = SKColor.black
         self.background.name = "background"
@@ -83,7 +67,7 @@ class GameScene: SKScene {
         self.addChild(background)
         
         template.position = CGPoint(x: centeredX, y: centeredY)
-        template.zPosition = 1
+        template.zPosition = ZPositions.template.rawValue
         self.addChild(template)
         
         piecesList = game.shapes.map(Piece.init)
@@ -91,7 +75,7 @@ class GameScene: SKScene {
         var verticalCount = 0
         for piece in piecesList {
             piece.position = CGPoint(x: Int(size.width/3) * count + 25, y: Int(size.height)/3 - Int(size.height)/5 * verticalCount)
-            piece.zPosition = 1
+            piece.zPosition = ZPositions.piece.rawValue
             self.addChild(piece)
             piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
             
@@ -110,6 +94,7 @@ class GameScene: SKScene {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tap.numberOfTapsRequired = 2
         view.addGestureRecognizer(tap)
+        winAnimation()
     }
     
     // creates a function to handle tap gesture to rotate the piece
@@ -212,6 +197,32 @@ class GameScene: SKScene {
     // Sheida working on it
     func winAnimation () {
         addPlayNextLevelButton()
+
+//        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
+//        winParticleBottom?.zPosition = 6
+//        winParticleBottom?.position = CGPoint(x: 15, y: 15)
+//        addChild(winParticleBottom!)
+//        winParticleBottom?.run(SKAction.fadeIn(withDuration: 1))
+//
+//        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")
+//        winParticleTop?.zPosition = 6
+//        winParticleTop?.position = CGPoint(x: 360, y: 660)
+//        addChild(winParticleTop!)
+//        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
+//
+        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
+        winParticleTop.zPosition = ZPositions.winParticles.rawValue
+        winParticleTop.position = CGPoint(x: 200, y: 400)
+        addChild(winParticleTop)
+        winParticleTop.run(SKAction.fadeIn(withDuration: 1))
+//
+//        let winCup = SKSpriteNode()
+//        winCup.position = CGPoint(x: 200, y: 350)
+//        winCup.zPosition = 1000
+//        winCup.run(winCupAnimation)
+//        addChild(winCup)
+//
+        
     }
     
     func addPlayNextLevelButton () {
@@ -219,7 +230,7 @@ class GameScene: SKScene {
         let playButton = SKSpriteNode(imageNamed: "BackB")
         playButton.size = CGSize (width: 100, height: 100)
         playButton.position = CGPoint(x: size.width/2, y: size.height/2)
-        playButton.zPosition = 4
+        playButton.zPosition = ZPositions.controls.rawValue
         addChild(playButton)
         self.playButton = playButton
     }
@@ -330,5 +341,15 @@ class GameScene: SKScene {
         if overlap() == true{
             piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
         }
+    }
+    
+    enum ZPositions: CGFloat {
+        case background
+        case winParticles
+        case template
+        case piece
+        // piece Z positions increase with every move, so we need a large gap for win nodes
+        case winImage = 1e10
+        case controls = 2e10
     }
 }

@@ -22,7 +22,7 @@ class HomeScene: SKScene {
         let title = SKSpriteNode(
         texture: SKTexture(
                     image: UIImage(named: "Title")!))
-        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
+        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.83)
         title.zPosition = 1
         title.setScale(0.4)
         addChild(title)
@@ -35,15 +35,15 @@ class HomeScene: SKScene {
         logo.setScale(0.3)
         addChild(logo)
         
-        let homeTextLabel = SKLabelNode(text: "Click anywhere to start!")
-        homeTextLabel.fontSize = 20
-        homeTextLabel.fontName = "ArialRoundedMTBold"
-        homeTextLabel.fontColor = SKColor.white
-        homeTextLabel.zPosition = 1
-        homeTextLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.15)
-        let textAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.5), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
-        addChild(homeTextLabel)
-        homeTextLabel.run(SKAction.repeatForever(textAnimate))
+        let homeStartB = SKSpriteNode(
+            texture: SKTexture(
+                        image: UIImage(named: "StartB")!))
+        homeStartB.zPosition = 1
+        homeStartB.position = CGPoint(x: size.width * 0.5, y: size.height * 0.2)
+        let buttonAnimate = SKAction.sequence([SKAction.fadeIn(withDuration: 0.6), SKAction.wait(forDuration: 0.5), SKAction.fadeOut(withDuration: 0.5)])
+        addChild(homeStartB)
+        homeStartB.setScale(0.37)
+        homeStartB.run(SKAction.repeatForever(buttonAnimate))
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
