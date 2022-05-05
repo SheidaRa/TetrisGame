@@ -33,11 +33,11 @@ let lvl0: Level = Level(shapes: [shape3, shape12], template: t0)
 
 //puzzles w 5 shapes
 let lvl1: Level = Level(shapes: [shape1, shape2, shape3, shape4, shape5], template: t3)
-let lvl2: Level = Level(shapes: [shape14, shape8, shape7, shape12.flipped(),shape13.flipped()], template: t9)
+let lvl2: Level = Level(shapes: [shape14, shape7, shape8, shape13.flipped(), shape12.flipped()], template: t9)
 
 //6 shapes
 let lvl3: Level  = Level(shapes: [shape7, shape12, shape4, shape14, shape9, shape13], template: t2)
-let lvl4: Level = Level(shapes: [shape5, shape14, shape13, shape15, shape8, shape10], template: t7)
+let lvl4: Level = Level(shapes: [shape5, shape15, shape14, shape13, shape8, shape10], template: t7)
 
 //7 shapes
 let lvl5: Level = Level(shapes: [shape14, shape12.flipped(), shape7.flipped(), shape2, shape4, shape8.flipped(), shape5], template: t4)

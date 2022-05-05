@@ -98,13 +98,32 @@ class GameScene: SKScene {
     // override function to check if the tetris piece moves or not
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTap)
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        tap.numberOfTapsRequired = 2
         view.addGestureRecognizer(tap)
+        
+    }
+    
+    @objc func handleTap(_ tap: UITapGestureRecognizer) {
+        if tap.state == .ended {
+            if atPoint(convertPoint(fromView: tap.location(in: self.view))) == playButton {
+                let nextScene: SKScene
+                if levelIndex+1 < allLevels.count {
+                    nextScene = GameScene(size: self.size, levelIndex: levelIndex + 1)
+                } else {
+                    nextScene = HomeScene(size: self.size)
+                }
+                nextScene.scaleMode = .aspectFit
+                self.view?.presentScene(nextScene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
+            }
+
+        }
     }
     
     // creates a function to handle tap gesture to rotate the piece
-    @objc func handleTap(_ tap: UITapGestureRecognizer) {
+    @objc func handleDoubleTap(_ tap: UITapGestureRecognizer) {
         guard !isFrozen else {
             return
         }
@@ -136,18 +155,6 @@ class GameScene: SKScene {
         for touch in touches {
             let curTouchPos = touch.location(in: self)
             let prevTouchPos = touch.previousLocation(in: self)
-            
-            if atPoint(curTouchPos) == playButton {
-                let nextScene: SKScene
-                if levelIndex+1 < allLevels.count {
-                    nextScene = GameScene(size: self.size, levelIndex: levelIndex + 1)
-                } else {
-                    nextScene = HomeScene(size: self.size)
-                }
-                
-                nextScene.scaleMode = .aspectFit
-                self.view?.presentScene(nextScene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
-            }
             
             guard !isFrozen else {
                 return
@@ -238,7 +245,6 @@ class GameScene: SKScene {
         playHalo.zPosition = ZPositions.controls.rawValue
         let playHaloaAnimation = SKAction.sequence([SKAction.rotate(byAngle: 10, duration: 10)])
         playHalo.run(SKAction.repeatForever(playHaloaAnimation))
-        
         addChild(playHalo)
         
         let playButton = SKSpriteNode(imageNamed: "BackB")
