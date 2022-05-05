@@ -30,8 +30,6 @@ let pShape = [
     (0,0),
     (0,1),(1,1),
     (0,2),(1,2)
-//    (0,0), (1,0),
-//    (0,1), (1,1), (2,1)
 ].map(GridPoint.init)
 
 let uShape = [
@@ -51,12 +49,7 @@ let wShape = [
     (2,1), (2,2)
 ].map(GridPoint.init)
 
-let stairShape = [ //not sure what shape this is?
-
-//    (1,0),
-//    (1,1),
-//    (0,1),(0,2)
-
+let stairShape = [
     (2,0),
     (2,1), (1,1),
     (1,2), (0,2)

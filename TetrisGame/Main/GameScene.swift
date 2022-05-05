@@ -38,15 +38,9 @@ class GameScene: SKScene {
     // constructor for GameScene
     init(size: CGSize, levelIndex: Int) {
         isFrozen = false
-        //game = gameLevel
         self.levelIndex = levelIndex
         let game = allLevels[levelIndex]
-//        game = lvl8 //2, 3, 4
         template = game.template
-        
-        
-        print("helo world")
-        
         
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
@@ -66,7 +60,6 @@ class GameScene: SKScene {
         super.init(size: size)
 
 
-        
         self.backgroundColor = SKColor.black
         self.background.name = "background"
         self.background.size = CGSize(width: 775, height: 1007)
@@ -78,21 +71,7 @@ class GameScene: SKScene {
         self.addChild(template)
         
         piecesList = game.shapes.map(Piece.init)
-        var count = 0
-        var verticalCount = 0
-        for piece in piecesList {
-            piece.position = CGPoint(x: Int(size.width/3) * count + 20, y: Int(template.position.y) - Int(piece.size.y*blockSize)  - 8 - Int(size.height)/5 * verticalCount)
-            piece.zPosition = ZPositions.piece.rawValue
-            self.addChild(piece)
-            piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
-            
-            count += 1
-            if count % 3 == 0 {
-                verticalCount += 1
-                count = 0
-            }
-        }
-        
+        placePieces(pieces: piecesList)
     }
     
     // override function to check if the tetris piece moves or not
@@ -115,11 +94,15 @@ class GameScene: SKScene {
                 } else {
                     nextScene = HomeScene(size: self.size)
                 }
-                nextScene.scaleMode = .aspectFit
-                self.view?.presentScene(nextScene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
+                generateScene(scene: nextScene)
             }
 
         }
+    }
+    
+    func generateScene(scene: SKScene){
+        scene.scaleMode = .aspectFit
+        self.view?.presentScene(scene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
     }
     
     // creates a function to handle tap gesture to rotate the piece
@@ -128,9 +111,7 @@ class GameScene: SKScene {
             return
         }
         if tap.state == .ended {
-            //print("    looking for piece")
             if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
-                //print("    found piece")
                 touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedPiece.shape.rotate()
                 
@@ -145,7 +126,6 @@ class GameScene: SKScene {
     // function to check if the piece tapped or moved is a tetris piece or not
     func piece(at pos: CGPoint) -> Piece? {
         let node = atPoint(pos)
-        //print("    ---> found node", node)
         return node.parent as? Piece
     }
     
@@ -204,7 +184,6 @@ class GameScene: SKScene {
                 if hasWon() {
                     winAnimation()
                 }
-//                print("overlap exists ", overlap())
                 handleOverlap(piece: touchedBlock)
             }
         }
@@ -256,6 +235,27 @@ class GameScene: SKScene {
         playButton.run(playButtonAnimation)
         
         self.playButton = playButton
+    }
+    
+    func placePieces(pieces: [Piece]){
+        var count = 0
+        var verticalCount = 0
+        for piece in pieces {
+            piece.position = CGPoint(
+                x: Int(size.width/3) * count + 20,
+                y: Int(template.position.y) - Int(piece.size.y) * blockSize - 8 - Int(size.height)/5 * verticalCount
+            )
+            
+            piece.zPosition = ZPositions.piece.rawValue
+            self.addChild(piece)
+            piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
+            
+            count += 1
+            if count % 3 == 0 {
+                verticalCount += 1
+                count = 0
+            }
+        }
     }
     
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
@@ -340,7 +340,7 @@ class GameScene: SKScene {
         return won
     }
     
-    func overlap() -> Bool { //instead make so takes piece as input and checks to see if already a piece in that pos?
+    func overlap() -> Bool {
         var overlapping: Bool = false
         let pieceDic = createPieceDic()
         for coord in pieceDic.keys{
