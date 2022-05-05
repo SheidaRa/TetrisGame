@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A1037ED27ED68000042D609 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1037EC27ED68000042D609 /* Template.swift */; };
 		2A4B7122281DC95E006C75B6 /* ShapesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4B7121281DC95E006C75B6 /* ShapesData.swift */; };
+		2A78C01B28246ABE00A0A2D1 /* BlockPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78C01A28246ABE00A0A2D1 /* BlockPositions.swift */; };
 		2A8C244E280E426400FC2A2B /* CoordConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C244D280E426400FC2A2B /* CoordConversion.swift */; };
 		2A8C2450280F44C300FC2A2B /* GridPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C244F280F44C300FC2A2B /* GridPoint.swift */; };
 		2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC1F2B27F395F5006FA96D /* Shape.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		2A1037EC27ED68000042D609 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		2A4B7121281DC95E006C75B6 /* ShapesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapesData.swift; sourceTree = "<group>"; };
+		2A78C01A28246ABE00A0A2D1 /* BlockPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPositions.swift; sourceTree = "<group>"; };
 		2A8C244D280E426400FC2A2B /* CoordConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordConversion.swift; sourceTree = "<group>"; };
 		2A8C244F280F44C300FC2A2B /* GridPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPoint.swift; sourceTree = "<group>"; };
 		2ADC1F2B27F395F5006FA96D /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				D99316AA2818E7B6007FC34D /* HomeScene.swift */,
 				D593B7B127E2378500EE1B59 /* GameViewController.swift */,
 				D593B7A927E2378500EE1B59 /* AppDelegate.swift */,
+				2A78C01A28246ABE00A0A2D1 /* BlockPositions.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				2A8C2450280F44C300FC2A2B /* GridPoint.swift in Sources */,
 				2A4B7122281DC95E006C75B6 /* ShapesData.swift in Sources */,
 				2ADC1F2C27F395F5006FA96D /* Shape.swift in Sources */,
+				2A78C01B28246ABE00A0A2D1 /* BlockPositions.swift in Sources */,
 				D593B82927EA73BE00EE1B59 /* Piece.swift in Sources */,
 				2A8C244E280E426400FC2A2B /* CoordConversion.swift in Sources */,
 				D5B4776D28177753004F5C7B /* GameLevel.swift in Sources */,

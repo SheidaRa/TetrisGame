@@ -29,6 +29,8 @@ class GameScene: SKScene {
     
     let coordCon: CoordConversion
     
+    let blockPositions: BlockPositions
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,6 +50,8 @@ class GameScene: SKScene {
         gridYOffset = centeredY % blockSize
         
         coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
+        
+        blockPositions = BlockPositions(template: self.template)
         
         piecesList = []
         
@@ -96,7 +100,6 @@ class GameScene: SKScene {
                 }
                 generateScene(scene: nextScene)
             }
-
         }
     }
     
@@ -139,7 +142,6 @@ class GameScene: SKScene {
             guard !isFrozen else {
                 return
             }
-
             if let touchedBlock = piece(at: prevTouchPos) {
                 touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedBlock.position += curTouchPos - prevTouchPos
@@ -187,14 +189,13 @@ class GameScene: SKScene {
                 handleOverlap(piece: touchedBlock)
             }
         }
-        
     }
     
 
     func winAnimation () {
         addPlayNextLevelButton()
         
-        for gridPoint in fillDictionary().keys {
+        for gridPoint in blockPositions.fillDictionary(piecesList: piecesList).keys {
             let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
             winParticleTop.zPosition = ZPositions.winParticles.rawValue
             // This should be coordCon.gridToScene(gridPoint: gridPoint), but
@@ -258,80 +259,11 @@ class GameScene: SKScene {
         }
     }
     
-    //takes layout coords of all pieces onscreen & returns position of blocks onscreen
-    func pieceCoords(pieces: [Piece]) -> [GridPoint] {
-        var coordList: [GridPoint] = []
-        for piece in pieces{
-            let coord = piece.shape.layout
-            var allX = coord.map(\.x)
-            var allY = coord.map(\.y)
-            for _ in 1...allX.count{
-                let newX = Int(piece.position.x) + (Int(allX.removeFirst()) * blockSize) + blockSize
-                let newY = Int(piece.position.y) + (Int(allY.removeFirst()) * blockSize) + blockSize
-                coordList.append(GridPoint(x: newX, y: newY))
-            }
-        }
-        return coordList
-    }
-    
-    func templateBlockPos() -> [GridPoint]{
-        var coordList: [GridPoint] = []
-        let coord = template.shape.layout
-        for block in coord{
-            let newX = Int(template.position.x) + (block.x * blockSize) + blockSize
-            let newY = Int(template.position.y) + (block.y * blockSize) + blockSize
-            coordList.append(GridPoint(x: newX, y: newY))
-        }
-        return coordList
-        
-    }
-
-    //creates dictionary with template block positions
-    func createTemplateDic() -> [GridPoint:Int] {
-        var coordMap: [GridPoint:Int] = [:]
-        let coordList = templateBlockPos()
-        for point in coordList{
-            coordMap[point] = 0
-        }
-        return coordMap
-    }
-    
-    //creates dictionary w all pieces' block positions
-    //check if 2, then know overlap
-    func createPieceDic() -> [GridPoint: Int]{
-        var coordMap: [GridPoint:Int] = [:]
-        let coordList = pieceCoords(pieces: piecesList)
-        for point in coordList{
-            if let val = coordMap[point]{
-                coordMap[point] = val + 1
-            } else{
-                coordMap[point] = 1
-            }
-        }
-        return coordMap
-    }
-    
-    //dictionary of the template's coordinates, values are num blocks in same pos, if any value is 0, know puzzle not complete
-    func fillDictionary() -> [GridPoint: Int] {
-        let piecesBlockPos = pieceCoords(pieces: piecesList)
-        var templateMap = createTemplateDic()
-        
-        for point in piecesBlockPos{
-            for coord in templateMap.keys{
-                if(point == coord){
-                    templateMap.updateValue(1 + Int(templateMap[coord] ?? 0), forKey: coord) //prob a better way to do this
-                }
-            }
-        }
-        return templateMap
-    }
-    
     func hasWon() -> Bool {
         var won: Bool = true
         
-        let templateMap = fillDictionary()
+        let templateMap = blockPositions.fillDictionary(piecesList: piecesList)
         let tempCoords = templateMap.values
-        
         for num in tempCoords{
             if(num != 1){
                 won = false
@@ -342,7 +274,7 @@ class GameScene: SKScene {
     
     func overlap() -> Bool {
         var overlapping: Bool = false
-        let pieceDic = createPieceDic()
+        let pieceDic = blockPositions.createPieceDic(piecesList: piecesList)
         for coord in pieceDic.keys{
             if pieceDic[coord] != 1{
                 overlapping = true
