@@ -101,7 +101,6 @@ class GameScene: SKScene {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tap.numberOfTapsRequired = 2
         view.addGestureRecognizer(tap)
-//        winAnimation()
     }
     
     // creates a function to handle tap gesture to rotate the piece
