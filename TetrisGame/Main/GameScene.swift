@@ -42,7 +42,6 @@ class GameScene: SKScene {
         self.levelIndex = levelIndex
         let game = allLevels[levelIndex]
 //        game = lvl8 //2, 3, 4
-        print(game)
         template = game.template
         
         
@@ -140,7 +139,6 @@ class GameScene: SKScene {
             let prevTouchPos = touch.previousLocation(in: self)
             
             if atPoint(curTouchPos) == playButton {
-                print("play button clicked")
                 let nextScene: SKScene
                 if levelIndex+1 < allLevels.count {
                     nextScene = GameScene(size: self.size, levelIndex: levelIndex + 1)
@@ -157,7 +155,6 @@ class GameScene: SKScene {
             }
 
             if let touchedBlock = piece(at: prevTouchPos) {
-                print("touch blocks")
                 touchedBlock.zPosition = (touchedBlock.parent?.children.map(\.zPosition).max() ?? 0) + 1
                 touchedBlock.position += curTouchPos - prevTouchPos
                 
@@ -249,7 +246,6 @@ class GameScene: SKScene {
     }
     
     func addPlayNextLevelButton () {
-        print("next button added")
         let playButton = SKSpriteNode(imageNamed: "BackB")
         playButton.size = CGSize (width: 100, height: 100)
         playButton.position = CGPoint(x: 200, y: 160)
@@ -258,15 +254,6 @@ class GameScene: SKScene {
         self.playButton = playButton
     }
     
-//    func getNextLevel (currentLevel: Level) -> Level {
-//        for i in allLevels {
-//            if i == game {
-//
-//            }
-//        }
-//        return currentLevel
-//    }
-  
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
     func pieceCoords(pieces: [Piece]) -> [GridPoint] {
         var coordList: [GridPoint] = []

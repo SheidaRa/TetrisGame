@@ -48,6 +48,6 @@ let lvl8: Level = Level(shapes: [shape15, shape8, shape11, shape5, shape10, shap
 //8 shapes
 let lvl9: Level = Level(shapes: [shape14, shape5, shape9, shape12.flipped(), shape10, shape15.flipped(), shape8,shape13.flipped()], template: t6)
 
-let allLevels: [Level] = [lvlIntro, lvl0]
+//let allLevels: [Level] = [lvlIntro, lvl0]
 
-//let allLevels: [Level] = [lvlIntro, lvl0, lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9]
+let allLevels: [Level] = [lvlIntro, lvl0, lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9]
