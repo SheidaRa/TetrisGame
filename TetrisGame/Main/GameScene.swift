@@ -205,11 +205,21 @@ class GameScene: SKScene {
         
     }
     
-    // Sheida working on it
+
     func winAnimation () {
-        print(winCupAnimation)
         
         addPlayNextLevelButton()
+        
+        
+        for gridPoint in fillDictionary().keys {
+            let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
+            winParticleTop.zPosition = ZPositions.winParticles.rawValue
+            // This should be coordCon.gridToScene(gridPoint: gridPoint), but
+            // fillDictionary() is really returning CGPoints, not GridPoints
+            winParticleTop.position = CGPoint(x: gridPoint.x - blockSize/2 , y: gridPoint.y - blockSize/2)
+            addChild(winParticleTop)
+            winParticleTop.run(SKAction.fadeIn(withDuration: 10))
+        }
 
 //        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
 //        winParticleBottom?.zPosition = 6
@@ -222,36 +232,34 @@ class GameScene: SKScene {
 //        winParticleTop?.position = CGPoint(x: 360, y: 660)
 //        addChild(winParticleTop!)
 //        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
-//
+
         
-        print(fillDictionary())
-        for gridPoint in fillDictionary().keys {
-            let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
-            winParticleTop.zPosition = ZPositions.winParticles.rawValue
-            // This should be coordCon.gridToScene(gridPoint: gridPoint), but
-            // fillDictionary() is really returning CGPoints, not GridPoints
-            winParticleTop.position = CGPoint(x: gridPoint.x - blockSize/2 , y: gridPoint.y - blockSize/2)
-            addChild(winParticleTop)
-            winParticleTop.run(SKAction.fadeIn(withDuration: 1))
-        }
-    
-//
-//        let winCup = SKSpriteNode()
-//        winCup.position = CGPoint(x: 200, y: 350)
-//        winCup.zPosition = 1000
-//        winCup.run(winCupAnimation)
-//        addChild(winCup)
-//
+
         
     }
     
     func addPlayNextLevelButton () {
+        
         let playButton = SKSpriteNode(imageNamed: "BackB")
-        playButton.size = CGSize (width: 100, height: 100)
-        playButton.position = CGPoint(x: 200, y: 160)
+        playButton.size = CGSize (width: 78, height: 78)
+        playButton.position = CGPoint(x: 205, y: 160)
         playButton.zPosition = ZPositions.controls.rawValue
+        let playButtonAnimation = SKAction.fadeIn(withDuration: 0.1)
         addChild(playButton)
+        playButton.run(playButtonAnimation)
+        
         self.playButton = playButton
+        
+        let playHalo = SKSpriteNode(imageNamed: "playHalo")
+        playHalo.size = CGSize (width: 200, height: 200)
+        playHalo.position = CGPoint(x: 200, y: 160)
+        playHalo.zPosition = ZPositions.controls.rawValue
+        let playHaloaAnimation = SKAction.sequence([SKAction.rotate(byAngle: 10, duration: 10)])
+        playHalo.run(SKAction.repeatForever(playHaloaAnimation))
+        
+        addChild(playHalo)
+        
+        
     }
     
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
