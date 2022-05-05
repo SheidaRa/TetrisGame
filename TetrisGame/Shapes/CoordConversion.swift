@@ -31,17 +31,17 @@ class CoordConversion {
     /**
      Converts from CGPoint to gridPoint on game's grid system
      */
-    func sceneToGrid(coord: CGPoint) -> (Int, Int){
+    func sceneToGrid(coord: CGPoint) -> GridPoint {
         let x = (Double(coord.x) - Double(xOffset)) / Double(blockSize)
         let y = (Double(coord.y) - Double(yOffset)) / Double(blockSize)
         
-        return (Int(x.rounded()), Int(y.rounded()))
+        return GridPoint(x: Int(x.rounded()), y: Int(y.rounded()))
     }
     
     /**
-     Converts from a gridPoint to a CGPoint
+     Converts from a GridPoint to a CGPoint
      */
-    func gridToScene(gridPoint:(x:Int, y:Int)) -> CGPoint{
+    func gridToScene(gridPoint: GridPoint) -> CGPoint{
         return CGPoint(
             x: (gridPoint.x * blockSize) + xOffset,
             y: (gridPoint.y * blockSize) + yOffset)

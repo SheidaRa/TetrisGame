@@ -45,6 +45,10 @@ class GameScene: SKScene {
         print(game)
         template = game.template
         
+        
+        print("helo world")
+        
+        
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
         gridXOffset = centeredX % blockSize
@@ -98,7 +102,7 @@ class GameScene: SKScene {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tap.numberOfTapsRequired = 2
         view.addGestureRecognizer(tap)
-        winAnimation()
+//        winAnimation()
     }
     
     // creates a function to handle tap gesture to rotate the piece
@@ -206,6 +210,8 @@ class GameScene: SKScene {
     
     // Sheida working on it
     func winAnimation () {
+        print(winCupAnimation)
+        
         addPlayNextLevelButton()
 
 //        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
@@ -220,11 +226,18 @@ class GameScene: SKScene {
 //        addChild(winParticleTop!)
 //        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
 //
-        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
-        winParticleTop.zPosition = ZPositions.winParticles.rawValue
-        winParticleTop.position = CGPoint(x: 200, y: 400)
-        addChild(winParticleTop)
-        winParticleTop.run(SKAction.fadeIn(withDuration: 1))
+        
+        print(fillDictionary())
+        for gridPoint in fillDictionary().keys {
+            let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
+            winParticleTop.zPosition = ZPositions.winParticles.rawValue
+            // This should be coordCon.gridToScene(gridPoint: gridPoint), but
+            // fillDictionary() is really returning CGPoints, not GridPoints
+            winParticleTop.position = CGPoint(x: gridPoint.x - blockSize/2 , y: gridPoint.y - blockSize/2)
+            addChild(winParticleTop)
+            winParticleTop.run(SKAction.fadeIn(withDuration: 1))
+        }
+    
 //
 //        let winCup = SKSpriteNode()
 //        winCup.position = CGPoint(x: 200, y: 350)
@@ -239,7 +252,7 @@ class GameScene: SKScene {
         print("next button added")
         let playButton = SKSpriteNode(imageNamed: "BackB")
         playButton.size = CGSize (width: 100, height: 100)
-        playButton.position = CGPoint(x: size.width/2, y: size.height/2)
+        playButton.position = CGPoint(x: 200, y: 160)
         playButton.zPosition = ZPositions.controls.rawValue
         addChild(playButton)
         self.playButton = playButton
@@ -308,7 +321,7 @@ class GameScene: SKScene {
     }
     
     //dictionary of the template's coordinates, values are num blocks in same pos, if any value is 0, know puzzle not complete
-    func fillDictionary() -> [GridPoint: Int]{
+    func fillDictionary() -> [GridPoint: Int] {
         let piecesBlockPos = pieceCoords(pieces: piecesList)
         var templateMap = createTemplateDic()
         
