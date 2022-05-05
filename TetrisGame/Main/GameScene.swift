@@ -191,6 +191,14 @@ class GameScene: SKScene {
         }
     }
     
+    /**
+     If overlap exists, offsets overlapping piece by 10 units in both the x and y direction from the game's grid
+     */
+    func handleOverlap(piece: Piece){
+        if blockPositions.overlap(pieces: piecesList) == true{
+            piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
+        }
+    }
 
     func winAnimation () {
         addPlayNextLevelButton()
@@ -261,7 +269,6 @@ class GameScene: SKScene {
     
     func hasWon() -> Bool {
         var won: Bool = true
-        
         let templateMap = blockPositions.fillDictionary(piecesList: piecesList)
         let tempCoords = templateMap.values
         for num in tempCoords{
@@ -270,23 +277,6 @@ class GameScene: SKScene {
             }
         }
         return won
-    }
-    
-    func overlap() -> Bool {
-        var overlapping: Bool = false
-        let pieceDic = blockPositions.createPieceDic(piecesList: piecesList)
-        for coord in pieceDic.keys{
-            if pieceDic[coord] != 1{
-                overlapping = true
-            }
-        }
-        return overlapping
-    }
-    
-    func handleOverlap(piece: Piece){
-        if overlap() == true{
-            piece.position = CGPoint(x: piece.position.x + 10, y: piece.position.y + 10)
-        }
     }
     
     enum ZPositions: CGFloat {

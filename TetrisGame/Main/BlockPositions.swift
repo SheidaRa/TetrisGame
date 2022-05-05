@@ -92,4 +92,18 @@ class BlockPositions{
         }
         return templateMap
     }
+    
+    /**
+     Checks the positions of all pieces onscreen, if any two are in the same position returns truex
+     */
+    func overlap(pieces: [Piece]) -> Bool {
+        var overlapping: Bool = false
+        let pieceDic = createPieceDic(piecesList: pieces)
+        for coord in pieceDic.keys{
+            if pieceDic[coord] != 1{
+                overlapping = true
+            }
+        }
+        return overlapping
+    }
 }
