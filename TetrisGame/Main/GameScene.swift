@@ -206,9 +206,7 @@ class GameScene: SKScene {
     
 
     func winAnimation () {
-        
         addPlayNextLevelButton()
-        
         
         for gridPoint in fillDictionary().keys {
             let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")!
@@ -231,13 +229,17 @@ class GameScene: SKScene {
 //        winParticleTop?.position = CGPoint(x: 360, y: 660)
 //        addChild(winParticleTop!)
 //        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
-
-        
-
-        
     }
     
     func addPlayNextLevelButton () {
+        let playHalo = SKSpriteNode(imageNamed: "playHalo")
+        playHalo.size = CGSize (width: 200, height: 200)
+        playHalo.position = CGPoint(x: 200, y: 160)
+        playHalo.zPosition = ZPositions.controls.rawValue
+        let playHaloaAnimation = SKAction.sequence([SKAction.rotate(byAngle: 10, duration: 10)])
+        playHalo.run(SKAction.repeatForever(playHaloaAnimation))
+        
+        addChild(playHalo)
         
         let playButton = SKSpriteNode(imageNamed: "BackB")
         playButton.size = CGSize (width: 78, height: 78)
@@ -248,17 +250,6 @@ class GameScene: SKScene {
         playButton.run(playButtonAnimation)
         
         self.playButton = playButton
-        
-        let playHalo = SKSpriteNode(imageNamed: "playHalo")
-        playHalo.size = CGSize (width: 200, height: 200)
-        playHalo.position = CGPoint(x: 200, y: 160)
-        playHalo.zPosition = ZPositions.controls.rawValue
-        let playHaloaAnimation = SKAction.sequence([SKAction.rotate(byAngle: 10, duration: 10)])
-        playHalo.run(SKAction.repeatForever(playHaloaAnimation))
-        
-        addChild(playHalo)
-        
-        
     }
     
     //takes layout coords of all pieces onscreen & returns position of blocks onscreen
