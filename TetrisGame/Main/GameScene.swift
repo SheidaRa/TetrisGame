@@ -8,6 +8,9 @@
 import SpriteKit
 import AVFoundation
 
+
+
+
 class GameScene: SKScene {
     
     let background = SKSpriteNode(imageNamed: "TetrisBackground")
@@ -44,6 +47,7 @@ class GameScene: SKScene {
         let game = allLevels[levelIndex]
         template = game.template
         
+print("testing")
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
         gridXOffset = centeredX % blockSize
