@@ -14,7 +14,7 @@ These above requirements are recommended for optimal experience with the app, an
 
   <img src='https://github.com/gyaltsentenzin/TetrisGame/blob/main/Readme%20Assets/Screen%20Shot%202022-05-06%20at%2011.37.31%20AM.png' title='Home Image'    width='250' alt='Home Image' />
 
-  <img src= 'https://github.com/gyaltsentenzin/TetrisGame/commit/8ae6b018acf30e71be713029d4151adb24c16b4e#diff-  c9a93e1429fb03bd4169c7aaa5e358471815c5c7c10333cb54f019c606c07937' title='Game Image' width='250' alt='Game Image'/>
+  <img src= 'https://github.com/gyaltsentenzin/TetrisGame/blob/main/Readme%20Assets/Screen%20Shot%202022-05-06%20at%2011.37.39%20AM.png' title='Game Image'   width='250' alt='Game Image'/>
   
 </p>
   
