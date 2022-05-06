@@ -31,13 +31,10 @@ class GameScene: SKScene {
     
     let blockPositions: BlockPositions
     
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // constructor for GameScene
     init(size: CGSize, levelIndex: Int) {
         isFrozen = false
         self.levelIndex = levelIndex
@@ -212,18 +209,6 @@ class GameScene: SKScene {
             addChild(winParticleTop)
             winParticleTop.run(SKAction.fadeIn(withDuration: 10))
         }
-
-//        let winParticleBottom = SKEmitterNode(fileNamed: "Spark.sks")
-//        winParticleBottom?.zPosition = 6
-//        winParticleBottom?.position = CGPoint(x: 15, y: 15)
-//        addChild(winParticleBottom!)
-//        winParticleBottom?.run(SKAction.fadeIn(withDuration: 1))
-//
-//        let winParticleTop = SKEmitterNode(fileNamed: "Spark.sks")
-//        winParticleTop?.zPosition = 6
-//        winParticleTop?.position = CGPoint(x: 360, y: 660)
-//        addChild(winParticleTop!)
-//        winParticleTop?.run(SKAction.fadeIn(withDuration: 1))
     }
     
     func addPlayNextLevelButton () {
