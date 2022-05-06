@@ -164,7 +164,9 @@ class GameScene: SKScene {
         return node.parent as? Piece
     }
     
-    // function to handle tetris piece movement
+    /**
+     Function to handle tetris piece movement
+     */
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         for touch in touches {
