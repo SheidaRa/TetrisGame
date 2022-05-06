@@ -8,9 +8,6 @@
 import SpriteKit
 import AVFoundation
 
-
-
-
 class GameScene: SKScene {
     
     let background = SKSpriteNode(imageNamed: "TetrisBackground")
@@ -47,7 +44,6 @@ class GameScene: SKScene {
         let game = allLevels[levelIndex]
         template = game.template
         
-print("testing")
         let centeredX = Int(size.width)/2 - (((template.size.x+1) * blockSize)/2)
         let centeredY = Int(size.height)*2/3 - ((template.size.y * blockSize)/2)
         gridXOffset = centeredX % blockSize
@@ -233,7 +229,7 @@ print("testing")
     func addPlayNextLevelButton () {
         let playHalo = SKSpriteNode(imageNamed: "playHalo")
         playHalo.size = CGSize (width: 200, height: 200)
-        playHalo.position = CGPoint(x: 200, y: 160)
+        playHalo.position = CGPoint(x: 185, y: 160)
         playHalo.zPosition = ZPositions.controls.rawValue
         let playHaloaAnimation = SKAction.sequence([SKAction.rotate(byAngle: 10, duration: 10)])
         playHalo.run(SKAction.repeatForever(playHaloaAnimation))
@@ -241,7 +237,7 @@ print("testing")
         
         let playButton = SKSpriteNode(imageNamed: "BackB")
         playButton.size = CGSize (width: 78, height: 78)
-        playButton.position = CGPoint(x: 205, y: 160)
+        playButton.position = CGPoint(x: 185, y: 160)
         playButton.zPosition = ZPositions.controls.rawValue
         let playButtonAnimation = SKAction.fadeIn(withDuration: 0.1)
         addChild(playButton)
