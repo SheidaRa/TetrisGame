@@ -7,6 +7,9 @@
 
 import SpriteKit
 
+/**
+ Generates a PIece SKNode with the given shape composed of blocks
+ */
 class Piece : SKNode {
     
     var shape: Shape {

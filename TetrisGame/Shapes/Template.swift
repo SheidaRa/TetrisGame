@@ -7,6 +7,9 @@
 
 import SpriteKit
 
+/**
+ Generates a Template SKNode with the given shape composed of blocks
+ */
 class Template : SKNode {
     
     var size: (x: Int, y: Int) {

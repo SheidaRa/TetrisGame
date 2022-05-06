@@ -7,7 +7,6 @@
 
 import SpriteKit
 
-// List of shapes
 let shape1 = Shape(structure: stairShape, blockImage: "B1")
 let shape2 = Shape(structure: tShape, blockImage: "B2")
 let shape3 = Shape(structure: squareShape, blockImage: "B3")
@@ -28,10 +27,11 @@ let shape15 = Shape(structure: trailJumpShape, blockImage: "B1")
 
 
 let allLevels: [Level] = [
+    //Intro
     Level(shapes: [shape5, shape11, shape4], template: tstart),
     Level(shapes: [shape3, shape12], template: t0),
 
-    //puzzles w 5 shapes
+    //5 shapes
     Level(shapes: [shape1, shape2, shape3, shape4, shape5], template: t3),
     Level(shapes: [shape14, shape7, shape8, shape13.flipped(), shape12.flipped()], template: t9),
 

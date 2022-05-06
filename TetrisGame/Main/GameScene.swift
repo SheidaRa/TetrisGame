@@ -47,9 +47,7 @@ class GameScene: SKScene {
         gridYOffset = centeredY % blockSize
         
         coordCon = CoordConversion(xOffset: gridXOffset, yOffset: gridYOffset)
-        
         blockPositions = BlockPositions(template: self.template)
-        
         piecesList = []
         
         var textures: [SKTexture] = []
@@ -58,21 +56,51 @@ class GameScene: SKScene {
         }
         winCupAnimation = SKAction.repeatForever(
             SKAction.animate(withNormalTextures: textures, timePerFrame: 0.1))
+        
         super.init(size: size)
 
-
+        setBackground()
+        addTemplate(x: centeredX, y: centeredY)
+        
+        piecesList = game.shapes.map(Piece.init)
+        placePieces(pieces: piecesList)
+    }
+    
+    func addTemplate(x: Int, y: Int){
+        template.position = CGPoint(x: x, y: y)
+        template.zPosition = ZPositions.template.rawValue
+        self.addChild(template)
+    }
+    
+    func setBackground(){
         self.backgroundColor = SKColor.black
         self.background.name = "background"
         self.background.size = CGSize(width: 775, height: 1007)
         self.background.anchorPoint = CGPoint.zero
         self.addChild(background)
-        
-        template.position = CGPoint(x: centeredX, y: centeredY)
-        template.zPosition = ZPositions.template.rawValue
-        self.addChild(template)
-        
-        piecesList = game.shapes.map(Piece.init)
-        placePieces(pieces: piecesList)
+    }
+    
+    /**
+     Places pieces on screen upon level start up so no pieces overlap or go offscreen
+     */
+    func placePieces(pieces: [Piece]){
+        var count = 0
+        var verticalCount = 0
+        for piece in pieces {
+            piece.position = CGPoint(
+                x: Int(size.width/3) * count + 20,
+                y: Int(template.position.y) - Int(piece.size.y) * blockSize - 8 - Int(size.height)/5 * verticalCount
+            )
+            piece.zPosition = ZPositions.piece.rawValue
+            self.addChild(piece)
+            piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
+            
+            count += 1
+            if count % 3 == 0 {
+                verticalCount += 1
+                count = 0
+            }
+        }
     }
     
     // override function to check if the tetris piece moves or not
@@ -86,6 +114,29 @@ class GameScene: SKScene {
         
     }
     
+    /**
+     Handles double tap gesture to rotate tapped piece
+     */
+    @objc func handleDoubleTap(_ tap: UITapGestureRecognizer) {
+        guard !isFrozen else {
+            return
+        }
+        if tap.state == .ended {
+            if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
+                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
+                touchedPiece.shape.rotate()
+                
+                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
+                isFrozen = hasWon()
+                
+               handleOverlap(piece: touchedPiece)
+            }
+        }
+    }
+    
+    /**
+     Handles single tap gesture only on play button to start up new level
+     */
     @objc func handleTap(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             if atPoint(convertPoint(fromView: tap.location(in: self.view))) == playButton {
@@ -105,25 +156,9 @@ class GameScene: SKScene {
         self.view?.presentScene(scene, transition: SKTransition.moveIn(with: SKTransitionDirection.down, duration: 0.5))
     }
     
-    // creates a function to handle tap gesture to rotate the piece
-    @objc func handleDoubleTap(_ tap: UITapGestureRecognizer) {
-        guard !isFrozen else {
-            return
-        }
-        if tap.state == .ended {
-            if let touchedPiece = piece(at: convertPoint(fromView: tap.location(in: self.view))) {
-                touchedPiece.zPosition = (touchedPiece.parent?.children.map(\.zPosition).max() ?? 0) + 1
-                touchedPiece.shape.rotate()
-                
-                touchedPiece.position = coordCon.snapToGrid(coord: touchedPiece.position)
-                isFrozen = hasWon()
-                
-               handleOverlap(piece: touchedPiece)
-            }
-        }
-    }
-    
-    // function to check if the piece tapped or moved is a tetris piece or not
+    /**
+     Checks if node at given position is a a piece
+     */
     func piece(at pos: CGPoint) -> Piece? {
         let node = atPoint(pos)
         return node.parent as? Piece
@@ -229,27 +264,6 @@ class GameScene: SKScene {
         playButton.run(playButtonAnimation)
         
         self.playButton = playButton
-    }
-    
-    func placePieces(pieces: [Piece]){
-        var count = 0
-        var verticalCount = 0
-        for piece in pieces {
-            piece.position = CGPoint(
-                x: Int(size.width/3) * count + 20,
-                y: Int(template.position.y) - Int(piece.size.y) * blockSize - 8 - Int(size.height)/5 * verticalCount
-            )
-            
-            piece.zPosition = ZPositions.piece.rawValue
-            self.addChild(piece)
-            piece.run(SKAction.moveBy(x: 0, y: -30, duration: 0.5))
-            
-            count += 1
-            if count % 3 == 0 {
-                verticalCount += 1
-                count = 0
-            }
-        }
     }
     
     func hasWon() -> Bool {
