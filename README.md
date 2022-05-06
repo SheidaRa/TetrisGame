@@ -9,5 +9,7 @@ To run it on phone, the iphone need to be updated to atleast IOS 15, and is base
 These above requirements are recommended for optimal experience with the app, and the codes
 
 # Game Thumbnails
+
+<img src='https://github.com/gyaltsentenzin/TetrisGame/blob/main/Readme%20Assets/Screen%20Shot%202022-05-06%20at%2011.37.31%20AM.png' title='Home Image' width='300' alt='Home Image' />
   
 
