@@ -6,7 +6,7 @@ Inspired by Tetris & Tangrams, this is an IOS game where game allows the tetris 
 
 # System Requirements
 To run it on phone, the iphone need to be updated to atleast IOS 15, and is based on Swift Language 5.6, and Xcode version 13.3.1
-Thos above requirements are recommended for optimal experience with the app, and the codes
+These above requirements are recommended for optimal experience with the app, and the codes
 
 # Game Thumbnails
   
