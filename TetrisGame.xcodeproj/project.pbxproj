@@ -160,7 +160,6 @@
 				D99316AA2818E7B6007FC34D /* HomeScene.swift */,
 				D593B7B127E2378500EE1B59 /* GameViewController.swift */,
 				D593B7A927E2378500EE1B59 /* AppDelegate.swift */,
-				2A78C01A28246ABE00A0A2D1 /* BlockPositions.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -171,6 +170,7 @@
 				2ADC1F2B27F395F5006FA96D /* Shape.swift */,
 				D593B82827EA73BE00EE1B59 /* Piece.swift */,
 				2A1037EC27ED68000042D609 /* Template.swift */,
+				2A78C01A28246ABE00A0A2D1 /* BlockPositions.swift */,
 				2A8C244D280E426400FC2A2B /* CoordConversion.swift */,
 				2A8C244F280F44C300FC2A2B /* GridPoint.swift */,
 				2A4B7121281DC95E006C75B6 /* ShapesData.swift */,

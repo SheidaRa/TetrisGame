@@ -7,6 +7,10 @@
 
 import Foundation
 
+/**
+ Contains data for all possible template and piece construction
+ */
+
 let squareShape = [
     (0,0),
     (0,1),

@@ -8,10 +8,10 @@
 import SpriteKit
 
 /// Size of the central square in each block image, and basis of the block grid.
-let blockSize = 35 //40
+let blockSize = 35
 
 /// Size of the sprite image for each block.
-let blockImageSize = 36 //41
+let blockImageSize = 36
 
 /**
  Creates blocks of specified colors & assembles based on given structure

@@ -7,6 +7,9 @@
 
 import SpriteKit
 
+/**
+ Calculates and keeps track of the positions ofindividual blocks
+ */
 class BlockPositions{
     
     let template: Template
@@ -94,7 +97,7 @@ class BlockPositions{
     }
     
     /**
-     Checks the positions of all pieces onscreen, if any two are in the same position returns truex
+     Checks the positions of all pieces onscreen, if any two are in the same position returns true
      */
     func overlap(pieces: [Piece]) -> Bool {
         var overlapping: Bool = false
