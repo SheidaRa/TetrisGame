@@ -16,6 +16,8 @@ These above requirements are recommended for optimal experience with the app, an
 
   <img src= 'https://github.com/gyaltsentenzin/TetrisGame/blob/main/Readme%20Assets/Screen%20Shot%202022-05-06%20at%2011.37.39%20AM.png' title='Game Image'   width='250' alt='Game Image'/>
   
+  <img src= 'https://github.com/gyaltsentenzin/TetrisGame/blob/main/Readme%20Assets/gameGif.gif' title='Game Gif'   width='300' alt='Game Gif'/>
+  
 </p>
   
 
